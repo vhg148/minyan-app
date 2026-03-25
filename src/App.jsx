@@ -1,5 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Clock, MapPin, Sun, Sunset, Moon, Info, Calendar, Map, Navigation } from 'lucide-react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
+import { Search, Clock, MapPin, Sun, Sunset, Moon, Info, Calendar, Map, Navigation, LocateFixed } from 'lucide-react';
+import { getCoordinates } from './coordinates';
+const PrayerMap = lazy(() => import('./PrayerMap'));
+
+// חישוב מרחק בין שתי נקודות (Haversine) - מחזיר מטרים
+function haversineDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = (x) => (x * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 // --- נתונים (Data) ---
 // הוספנו zmanReference ו-offset (בדקות) לתפילות שתלויות בזמני היום
 const prayerData = [
@@ -280,6 +292,8 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selectedMapPrayer, setSelectedMapPrayer] = useState(null);
   const [zmanim, setZmanim] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const [locationStatus, setLocationStatus] = useState('idle'); // idle | loading | granted | denied
   // משיכת זמני היום ההלכתיים (API Hebcal לחולון)
   useEffect(() => {
     const fetchZmanim = async () => {
@@ -317,6 +331,24 @@ export default function App() {
     const timer = setInterval(() => setCurrentTime(new Date()), 60000);
     return () => clearInterval(timer);
   }, []);
+
+  // בקשת מיקום מהמשתמש
+  const requestLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationStatus('denied');
+      return;
+    }
+    setLocationStatus('loading');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserLocation([pos.coords.latitude, pos.coords.longitude]);
+        setLocationStatus('granted');
+      },
+      () => setLocationStatus('denied'),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+
   // חישוב רשימת התפילות עם השעות המעודכנות והמרחק מהעכשיו
   const upcomingPrayersList = useMemo(() => {
     const currentHours = currentTime.getHours();
@@ -338,11 +370,18 @@ export default function App() {
         // נותן "חסד" של 45 דקות לתפילות שכבר התחילו, מעבר לזה מעביר למחר
         if (diff < -45) diff += 24 * 60;
 
-        return { ...prayer, diff, actualTime };
+        // חישוב מרחק מהמשתמש
+        let distance = null;
+        if (userLocation) {
+          const coords = getCoordinates(prayer.address);
+          distance = haversineDistance(userLocation[0], userLocation[1], coords[0], coords[1]);
+        }
+
+        return { ...prayer, diff, actualTime, distance };
       })
       .filter(p => p.diff !== 9999) // להציג רק תפילות שחושבו בהצלחה
       .sort((a, b) => a.diff - b.diff);
-  }, [currentTime, zmanim]);
+  }, [currentTime, zmanim, userLocation]);
   // בחירת ברירת מחדל למפה (התפילה הקרובה ביותר) מופעלת פעם אחת
   useEffect(() => {
     if (!selectedMapPrayer && upcomingPrayersList.length > 0) {
@@ -426,19 +465,39 @@ export default function App() {
             טוען את זמני היום (הלכה)...
           </div>
         )}
-        {/* חיפוש */}
-        <div className="relative z-10">
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-slate-400" />
+        {/* חיפוש + מיקום */}
+        <div className="flex gap-2 z-10">
+          <div className="relative flex-1">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-slate-400" />
+            </div>
+            <input
+              type="text"
+              className="block w-full pr-10 pl-3 py-3 border border-slate-300 rounded-xl leading-5 bg-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm transition-all"
+              placeholder="חיפוש לפי שעה, כתובת, או שם מניין..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-          <input
-            type="text"
-            className="block w-full pr-10 pl-3 py-3 border border-slate-300 rounded-xl leading-5 bg-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm transition-all"
-            placeholder="חיפוש לפי שעה, כתובת, או שם מניין..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <button
+            onClick={requestLocation}
+            className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold shadow-sm transition-all border whitespace-nowrap ${
+              locationStatus === 'granted'
+                ? 'bg-blue-600 text-white border-blue-700'
+                : locationStatus === 'loading'
+                ? 'bg-blue-100 text-blue-600 border-blue-200 animate-pulse'
+                : locationStatus === 'denied'
+                ? 'bg-red-50 text-red-600 border-red-200'
+                : 'bg-white text-slate-700 border-slate-300 hover:bg-blue-50 hover:border-blue-300'
+            }`}
+          >
+            <LocateFixed className="w-5 h-5" />
+            {locationStatus === 'granted' ? 'מיקום פעיל' :
+             locationStatus === 'loading' ? 'מאתר...' :
+             locationStatus === 'denied' ? 'נדחה' : 'מיקום'}
+          </button>
         </div>
+
         {/* טאבים (לשוניות ניווט) */}
         <div className="flex overflow-x-auto hide-scrollbar space-x-reverse space-x-2 bg-white p-1 rounded-xl shadow-sm border border-slate-200">
           {tabs.map((tab) => (
@@ -461,12 +520,14 @@ export default function App() {
         </div>
         {/* --- תצוגת מפה וקרובים (המסך הראשי) --- */}
         {activeTab === 'upcoming' && searchQuery === '' && (
-          <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col md:flex-row h-[600px]">
+          <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+            {/* מפה — למעלה במובייל, בצד שמאל בדסקטופ */}
+            <div className="flex flex-col md:flex-row md:h-[600px]">
 
-            {/* צד ימין במסכים גדולים / למטה בנייד: רשימת התפילות */}
-            <div className="w-full md:w-2/5 lg:w-1/3 overflow-y-auto bg-slate-50 p-4 hide-scrollbar border-l border-slate-200 order-2 md:order-1 relative">
-              <h3 className="font-bold text-lg text-slate-800 mb-4 sticky top-0 bg-slate-50 py-2 border-b border-slate-200 z-10 flex items-center">
-                <Clock className="w-5 h-5 ml-2 text-blue-600" />
+            {/* רשימת תפילות — למטה במובייל, בצד ימין בדסקטופ */}
+            <div className="w-full md:w-2/5 lg:w-1/3 overflow-y-auto bg-slate-50 p-4 hide-scrollbar border-l border-slate-200 order-2 md:order-none relative max-h-[55vh] md:max-h-full">
+              <h3 className="font-bold text-lg text-slate-800 mb-4 sticky top-0 bg-slate-50 py-2 border-b border-slate-200 z-10 flex items-center md:block">
+                <Clock className="w-5 h-5 ml-2 text-blue-600 inline" />
                 התפילות הבאות
               </h3>
               <div className="space-y-3 pb-4">
@@ -504,6 +565,11 @@ export default function App() {
                       <div className="text-sm text-slate-500 flex items-center mt-0.5">
                         <MapPin className="w-3 h-3 ml-1 text-slate-400" /> {prayer.address}
                       </div>
+                      {prayer.distance != null && (
+                        <div className="text-xs font-bold text-blue-600 mt-1">
+                          🚶 {Math.max(1, Math.round(prayer.distance / 80))} דק' הליכה
+                        </div>
+                      )}
                       {/* תגית מצב נוכחי לפי חישוב דקות */}
                       {prayer.diff <= 0 && prayer.diff > -45 && (
                         <div className="mt-2.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block border border-emerald-200">
@@ -521,43 +587,18 @@ export default function App() {
               </div>
             </div>
 
-            {/* צד שמאל במסכים גדולים / למעלה בנייד: מפה חיה */}
-            <div className="w-full md:w-3/5 lg:w-2/3 h-[300px] md:h-full relative bg-slate-200 order-1 md:order-2">
-              <iframe
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                scrolling="no"
-                marginHeight="0"
-                marginWidth="0"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent((selectedMapPrayer?.address || "חולון") + ", חולון, ישראל")}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
-              ></iframe>
+            {/* מפה — למעלה במובייל, בצד שמאל בדסקטופ */}
+            <div className="w-full md:w-3/5 lg:w-2/3 h-[35vh] md:h-full relative bg-slate-200 order-1 md:order-none">
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-slate-500">טוען מפה...</div>}>
+                <PrayerMap
+                  prayers={upcomingPrayersList.slice(0, 30)}
+                  selectedPrayer={selectedMapPrayer}
+                  onSelectPrayer={setSelectedMapPrayer}
+                  userLocation={userLocation}
+                />
+              </Suspense>
+            </div>
 
-              {/* שכבת מידע צפה על המפה */}
-              {selectedMapPrayer && (
-                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-xl border border-slate-200/50">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h4 className="font-bold text-lg text-slate-800">{selectedMapPrayer.name}</h4>
-                      <p className="text-sm font-medium text-slate-600 flex items-center mt-1">
-                        <MapPin className="w-4 h-4 ml-1 text-blue-500"/> {selectedMapPrayer.address}
-                      </p>
-                    </div>
-                    <div className="bg-blue-600 text-white font-black text-xl px-4 py-1.5 rounded-lg shadow-inner flex flex-col items-center">
-                      <span>{selectedMapPrayer.actualTime}</span>
-                      {selectedMapPrayer.zmanReference && <span className="text-[10px] font-normal opacity-80">{selectedMapPrayer.time}</span>}
-                    </div>
-                  </div>
-                  <div className="flex gap-3 mt-4">
-                    <a href={`https://waze.com/ul?q=${encodeURIComponent(selectedMapPrayer.address + ' חולון')}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-800 text-sm py-2 rounded-lg flex items-center justify-center font-bold transition-colors shadow-sm">
-                      <Navigation className="w-4 h-4 ml-1.5" /> סע ב-Waze
-                    </a>
-                    <a href={`https://maps.google.com/?q=${encodeURIComponent(selectedMapPrayer.address + ' חולון')}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-sm py-2 rounded-lg flex items-center justify-center font-bold transition-colors shadow-sm">
-                      <Map className="w-4 h-4 ml-1.5" /> גוגל מפות
-                    </a>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}

@@ -3,3 +3,31 @@
 body {
   margin: 0;
 }
+
+/* Leaflet custom marker styles */
+.prayer-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px !important;
+  padding: 0 !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+}
+
+.leaflet-popup-content {
+  margin: 14px !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+}
+
+.leaflet-tooltip {
+  direction: rtl;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+  font-family: system-ui, sans-serif !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
