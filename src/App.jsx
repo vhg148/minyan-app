@@ -115,8 +115,8 @@ export default function App() {
         let mins = ph * 60 + pm;
         let diff = mins - currentTotalMinutes;
 
-        // נותן "חסד" של 45 דקות לתפילות שכבר התחילו, מעבר לזה מעביר למחר
-        if (diff < -45) diff += 24 * 60;
+        // נותן "חסד" של 15 דקות לתפילות שכבר התחילו, מעבר לזה מעביר למחר
+        if (diff < -15) diff += 24 * 60;
 
         // חישוב מרחק מהמשתמש
         let distance = null;
@@ -178,6 +178,11 @@ export default function App() {
         </div>
       </header>
       <main className="max-w-5xl mx-auto p-4 space-y-5">
+
+        {/* התראה: זמני בת ים לא מעודכנים */}
+        <div className="bg-amber-50 border border-amber-300 text-amber-800 rounded-xl p-3 text-center text-sm font-medium">
+          ⚠️ זמני בת ים טרם עודכנו לשעון קיץ — יתכנו אי-דיוקים
+        </div>
 
         {/* תאריך עדכון אחרון */}
         {dataLastUpdated && (
@@ -337,7 +342,7 @@ export default function App() {
                              prayer.category === 'shacharit' ? 'שחרית' :
                              prayer.category === 'mincha' ? 'מנחה' : 'ערבית'}
                           </span>
-                          {prayer.diff <= 0 && prayer.diff > -45 && (
+                          {prayer.diff <= 0 && prayer.diff > -15 && (
                             <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200">
                               לפני {Math.abs(prayer.diff)} דק'
                             </span>
