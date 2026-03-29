@@ -304,76 +304,68 @@ export default function App() {
         </div>
         {/* --- תצוגת מפה וקרובים (המסך הראשי) --- */}
         {activeTab === 'upcoming' && searchQuery === '' && (
-          <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+          <div className="bg-white rounded-xl shadow-md border border-slate-200">
             {/* מפה — למעלה במובייל, בצד שמאל בדסקטופ */}
             <div className="flex flex-col md:flex-row md:h-[600px]">
 
             {/* רשימת תפילות — למטה במובייל, בצד ימין בדסקטופ */}
-            <div className="w-full md:w-2/5 lg:w-1/3 overflow-y-auto bg-slate-50 p-4 hide-scrollbar border-l border-slate-200 order-2 md:order-none relative max-h-[55vh] md:max-h-full">
-              <h3 className="font-bold text-lg text-slate-800 mb-4 sticky top-0 bg-slate-50 py-2 border-b border-slate-200 z-10 flex items-center md:block">
+            <div className="w-full md:w-2/5 lg:w-1/3 overflow-y-auto bg-slate-50 p-3 md:p-4 hide-scrollbar border-l border-slate-200 order-2 md:order-none relative md:max-h-full">
+              <h3 className="font-bold text-base md:text-lg text-slate-800 mb-2 md:mb-4 sticky top-0 bg-slate-50 py-2 border-b border-slate-200 z-10 flex items-center md:block">
                 <Clock className="w-5 h-5 ml-2 text-blue-600 inline" />
                 התפילות הבאות
               </h3>
-              <div className="space-y-3 pb-4">
+              <div className="space-y-2 md:space-y-3 pb-4">
                 {upcomingPrayersList.map(prayer => {
                   const isSelected = selectedMapPrayer?.id === prayer.id;
                   return (
                     <div
                       key={`up-${prayer.id}`}
                       onClick={() => setSelectedMapPrayer(prayer)}
-                      className={`p-3 rounded-xl border cursor-pointer transition-all ${
+                      className={`p-2.5 md:p-3 rounded-xl border cursor-pointer transition-all ${
                         isSelected
-                          ? 'bg-blue-50 border-blue-400 shadow-md transform scale-[1.02]'
+                          ? 'bg-blue-50 border-blue-400 shadow-md'
                           : 'bg-white border-slate-200 hover:border-blue-300'
                       }`}
                     >
-                      <div className="flex justify-between items-start">
-                        <div className="flex flex-col">
-                          <span className={`font-black text-2xl ${isSelected ? 'text-blue-700' : 'text-slate-800'}`}>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                          <span className={`font-black text-xl md:text-2xl ${isSelected ? 'text-blue-700' : 'text-slate-800'}`}>
                             {prayer.actualTime}
                           </span>
-                          {prayer.zmanReference && (
-                            <span className="text-[10px] font-bold text-slate-500 mt-0.5">
-                              {prayer.time}
+                          <span className="text-[10px] font-medium bg-white px-1.5 py-0.5 rounded-md text-slate-600 shadow-sm border border-slate-100">
+                            {prayer.subCategory === 'mincha_arvit' ? 'מנחה+ערבית' :
+                             prayer.category === 'shacharit' ? 'שחרית' :
+                             prayer.category === 'mincha' ? 'מנחה' : 'ערבית'}
+                          </span>
+                          {prayer.diff <= 0 && prayer.diff > -45 && (
+                            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200">
+                              לפני {Math.abs(prayer.diff)} דק'
+                            </span>
+                          )}
+                          {prayer.diff > 0 && prayer.diff < 60 && (
+                            <span className="text-[10px] font-bold text-red-700 bg-red-50 px-1.5 py-0.5 rounded-md border border-red-200">
+                              בעוד {prayer.diff} דק'
                             </span>
                           )}
                         </div>
-                        <span className="text-xs font-medium bg-white px-2 py-1 rounded-md text-slate-600 shadow-sm border border-slate-100 flex items-center">
-                          {prayer.subCategory === 'mincha_arvit' ? 'מנחה+ערבית' :
-                           prayer.category === 'shacharit' ? 'שחרית' :
-                           prayer.category === 'mincha' ? 'מנחה' : 'ערבית'}
-                        </span>
                       </div>
 
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="font-bold text-slate-700 text-[15px]">{prayer.name}</span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <span className="font-bold text-slate-700 text-sm">{prayer.name}</span>
+                        <span className={`text-[9px] font-bold px-1 py-0.5 rounded ${
                           prayer.city === 'בת ים'
-                            ? 'bg-teal-100 text-teal-700 border border-teal-200'
-                            : 'bg-blue-100 text-blue-700 border border-blue-200'
+                            ? 'bg-teal-100 text-teal-700'
+                            : 'bg-blue-100 text-blue-700'
                         }`}>
                           {prayer.city || 'חולון'}
                         </span>
                       </div>
-                      <div className="text-sm text-slate-500 flex items-center mt-0.5">
-                        <MapPin className="w-3 h-3 ml-1 text-slate-400" /> {prayer.address}
+                      <div className="text-xs text-slate-500 flex items-center mt-0.5">
+                        <MapPin className="w-3 h-3 ml-1 text-slate-400 flex-shrink-0" /> {prayer.address}
+                        {prayer.distance != null && (
+                          <span className="text-blue-600 font-bold mr-2">· {Math.max(1, Math.round(prayer.distance / 80))} דק' הליכה</span>
+                        )}
                       </div>
-                      {prayer.distance != null && (
-                        <div className="text-xs font-bold text-blue-600 mt-1">
-                          🚶 {Math.max(1, Math.round(prayer.distance / 80))} דק' הליכה
-                        </div>
-                      )}
-                      {/* תגית מצב נוכחי לפי חישוב דקות */}
-                      {prayer.diff <= 0 && prayer.diff > -45 && (
-                        <div className="mt-2.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md inline-block border border-emerald-200">
-                          התחיל לפני {Math.abs(prayer.diff)} דק'
-                        </div>
-                      )}
-                      {prayer.diff > 0 && prayer.diff < 60 && (
-                        <div className="mt-2.5 text-xs font-bold text-red-700 bg-red-50 px-2 py-1 rounded-md inline-block border border-red-200">
-                          בעוד {prayer.diff} דקות!
-                        </div>
-                      )}
                     </div>
                   );
                 })}
@@ -381,7 +373,7 @@ export default function App() {
             </div>
 
             {/* מפה — למעלה במובייל, בצד שמאל בדסקטופ */}
-            <div className="w-full md:w-3/5 lg:w-2/3 h-[35vh] md:h-full relative bg-slate-200 order-1 md:order-none">
+            <div className="w-full md:w-3/5 lg:w-2/3 h-[200px] md:h-full relative bg-slate-200 order-1 md:order-none">
               <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-slate-500">טוען מפה...</div>}>
                 <PrayerMap
                   prayers={upcomingPrayersList.slice(0, 30)}
