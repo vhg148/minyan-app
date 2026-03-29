@@ -84,7 +84,7 @@ function FitAllMarkers({ prayers }) {
   return null;
 }
 
-// קומפוננטה שמזיזה את המפה כשבוחרים מניין (רק לחיצת משתמש)
+// קומפוננטה שמזיזה את המפה כשבוחרים מניין ופותחת popup
 function FlyToSelected({ selectedPrayer }) {
   const map = useMap();
   const prevId = useRef(null);
@@ -98,7 +98,20 @@ function FlyToSelected({ selectedPrayer }) {
     }
     if (selectedPrayer && selectedPrayer.id !== prevId.current) {
       const coords = getCoordinates(selectedPrayer.address, selectedPrayer.city);
-      map.flyTo(coords, 17, { duration: 0.8 });
+      // הזזת המרכז מעט למטה כדי שה-popup ייראה מעל הסמן
+      const offsetCoords = [coords[0] + 0.001, coords[1]];
+      map.flyTo(offsetCoords, 17, { duration: 0.8 });
+      // פתיחת popup אחרי שההעפה מסתיימת
+      map.once('moveend', () => {
+        map.eachLayer((layer) => {
+          if (layer instanceof L.Marker && layer.getPopup()) {
+            const pos = layer.getLatLng();
+            if (Math.abs(pos.lat - coords[0]) < 0.0001 && Math.abs(pos.lng - coords[1]) < 0.0001) {
+              layer.openPopup();
+            }
+          }
+        });
+      });
       prevId.current = selectedPrayer.id;
     }
   }, [selectedPrayer, map]);
