@@ -75,7 +75,7 @@ function FitAllMarkers({ prayers }) {
 
   useEffect(() => {
     if (!fitted.current && prayers.length > 0) {
-      const bounds = L.latLngBounds(prayers.map(p => getCoordinates(p.address)));
+      const bounds = L.latLngBounds(prayers.map(p => getCoordinates(p.address, p.city)));
       map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
       fitted.current = true;
     }
@@ -97,7 +97,7 @@ function FlyToSelected({ selectedPrayer }) {
       return;
     }
     if (selectedPrayer && selectedPrayer.id !== prevId.current) {
-      const coords = getCoordinates(selectedPrayer.address);
+      const coords = getCoordinates(selectedPrayer.address, selectedPrayer.city);
       map.flyTo(coords, 17, { duration: 0.8 });
       prevId.current = selectedPrayer.id;
     }
@@ -157,7 +157,7 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
       )}
 
       {prayers.map((prayer) => {
-        const coords = getCoordinates(prayer.address);
+        const coords = getCoordinates(prayer.address, prayer.city);
         const isSelected = selectedPrayer?.id === prayer.id;
 
         return (
@@ -183,6 +183,15 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                     <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                       {prayer.address}
                     </div>
+                    <span style={{
+                      fontSize: '10px', fontWeight: 700, marginTop: '3px',
+                      padding: '1px 6px', borderRadius: '4px', display: 'inline-block',
+                      background: prayer.city === 'בת ים' ? '#ccfbf1' : '#dbeafe',
+                      color: prayer.city === 'בת ים' ? '#0f766e' : '#1d4ed8',
+                      border: `1px solid ${prayer.city === 'בת ים' ? '#99f6e4' : '#bfdbfe'}`
+                    }}>
+                      {prayer.city || 'חולון'}
+                    </span>
                   </div>
                   <div style={{
                     background: CATEGORY_COLORS[prayer.subCategory === 'mincha_arvit' ? 'mincha_arvit' : prayer.category]?.bg || '#3b82f6',
@@ -220,7 +229,7 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
 
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <a
-                    href={`https://waze.com/ul?q=${encodeURIComponent(prayer.address + ' חולון')}`}
+                    href={`https://waze.com/ul?q=${encodeURIComponent(prayer.address + ' ' + (prayer.city || 'חולון'))}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -232,7 +241,7 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                     Waze
                   </a>
                   <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(prayer.address + ' חולון')}`}
+                    href={`https://maps.google.com/?q=${encodeURIComponent(prayer.address + ' ' + (prayer.city || 'חולון'))}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
