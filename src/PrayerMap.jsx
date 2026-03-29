@@ -170,22 +170,22 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
               click: () => onSelectPrayer(prayer),
             }}
           >
-            <Popup className="prayer-popup" maxWidth={280} minWidth={220}>
+            <Popup className="prayer-popup" maxWidth={300} minWidth={240}>
               <div style={{ direction: 'rtl', fontFamily: 'system-ui, sans-serif' }}>
                 <div style={{
                   display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                  marginBottom: '8px', gap: '8px'
+                  marginBottom: '12px', gap: '10px'
                 }}>
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: '16px', color: '#1e293b' }}>
+                    <div style={{ fontWeight: 800, fontSize: '17px', color: '#1e293b', lineHeight: 1.3 }}>
                       {prayer.name}
                     </div>
-                    <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                       {prayer.address}
                     </div>
                     <span style={{
-                      fontSize: '10px', fontWeight: 700, marginTop: '3px',
-                      padding: '1px 6px', borderRadius: '4px', display: 'inline-block',
+                      fontSize: '10px', fontWeight: 700, marginTop: '6px',
+                      padding: '2px 8px', borderRadius: '4px', display: 'inline-block',
                       background: prayer.city === 'בת ים' ? '#ccfbf1' : '#dbeafe',
                       color: prayer.city === 'בת ים' ? '#0f766e' : '#1d4ed8',
                       border: `1px solid ${prayer.city === 'בת ים' ? '#99f6e4' : '#bfdbfe'}`
@@ -197,9 +197,9 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                     background: CATEGORY_COLORS[prayer.subCategory === 'mincha_arvit' ? 'mincha_arvit' : prayer.category]?.bg || '#3b82f6',
                     color: 'white',
                     fontWeight: 900,
-                    fontSize: '18px',
-                    padding: '4px 10px',
-                    borderRadius: '10px',
+                    fontSize: '20px',
+                    padding: '6px 14px',
+                    borderRadius: '12px',
                     textAlign: 'center',
                     lineHeight: 1.2,
                     flexShrink: 0,
@@ -210,8 +210,8 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
 
                 {prayer.distance != null && (
                   <div style={{
-                    fontSize: '12px', color: '#1d4ed8', background: '#eff6ff',
-                    padding: '5px 8px', borderRadius: '6px', marginBottom: '8px',
+                    fontSize: '13px', color: '#1d4ed8', background: '#eff6ff',
+                    padding: '7px 10px', borderRadius: '8px', marginBottom: '10px',
                     fontWeight: 700, textAlign: 'center'
                   }}>
                     🚶 {Math.max(1, Math.round(prayer.distance / 80))} דק' הליכה
@@ -221,7 +221,7 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                 {prayer.notes && (
                   <div style={{
                     fontSize: '12px', color: '#475569', background: '#f1f5f9',
-                    padding: '5px 8px', borderRadius: '6px', marginBottom: '8px'
+                    padding: '7px 10px', borderRadius: '8px', marginBottom: '10px'
                   }}>
                     {prayer.notes}
                   </div>
@@ -233,9 +233,9 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      flex: 1, background: '#e0f2fe', color: '#0369a1', padding: '7px 0',
-                      borderRadius: '8px', textDecoration: 'none', fontWeight: 700,
-                      fontSize: '13px', textAlign: 'center', display: 'block'
+                      flex: 1, background: '#e0f2fe', color: '#0369a1', padding: '9px 0',
+                      borderRadius: '10px', textDecoration: 'none', fontWeight: 700,
+                      fontSize: '14px', textAlign: 'center', display: 'block'
                     }}
                   >
                     Waze
@@ -245,9 +245,9 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      flex: 1, background: '#d1fae5', color: '#047857', padding: '7px 0',
-                      borderRadius: '8px', textDecoration: 'none', fontWeight: 700,
-                      fontSize: '13px', textAlign: 'center', display: 'block'
+                      flex: 1, background: '#d1fae5', color: '#047857', padding: '9px 0',
+                      borderRadius: '10px', textDecoration: 'none', fontWeight: 700,
+                      fontSize: '14px', textAlign: 'center', display: 'block'
                     }}
                   >
                     מפות
