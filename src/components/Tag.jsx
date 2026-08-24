@@ -36,3 +36,16 @@ export function FreshnessTag({ freshness }) {
   if (freshness === 'previous') return <Tag tone="warn">זמן קודם</Tag>;
   return null;
 }
+
+/** תגית הצמדת מנחה+ערבית — שקטה בצבע, אבל תמיד נראית */
+export function PairingTag({ pairing, short = false }) {
+  if (!pairing) return null;
+  return (
+    <span
+      title={pairing.label}
+      className="inline-flex shrink-0 items-center rounded-[5px] border border-line-strong bg-surface-2 px-[5px] py-[1px] text-[10.5px] font-medium whitespace-nowrap text-ink-2"
+    >
+      {short ? pairing.short : pairing.label}
+    </span>
+  );
+}

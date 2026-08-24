@@ -721,8 +721,9 @@
    "name": "החיד\"א",
    "address": "רמת יוסף בת ים",
    "city": "בת ים",
-   "notes": "ערבית בסמוך",
-   "freshness": "current"
+   "notes": "",
+   "freshness": "current",
+   "pairing": "adjacent"
   },
   {
    "id": 644,
@@ -751,8 +752,9 @@
    "name": "משכן שמעון",
    "address": "פנקס 2 בת ים",
    "city": "בת ים",
-   "notes": "מנחה וערבית ברצף",
-   "freshness": "current"
+   "notes": "",
+   "freshness": "current",
+   "pairing": "consecutive"
   },
   {
    "id": 647,
@@ -761,9 +763,10 @@
    "name": "אהבת מישרים",
    "address": "",
    "city": "בת ים",
-   "notes": "ערבית בסמוך",
+   "notes": "",
    "freshness": "current",
-   "needsAddress": true
+   "needsAddress": true,
+   "pairing": "adjacent"
   },
   {
    "id": 648,
@@ -782,8 +785,9 @@
    "name": "משכן נתן",
    "address": "מרכז העיר בת ים",
    "city": "בת ים",
-   "notes": "ערבית בסמוך",
-   "freshness": "current"
+   "notes": "",
+   "freshness": "current",
+   "pairing": "adjacent"
   },
   {
    "id": 650,
@@ -792,8 +796,9 @@
    "name": "עולי בבל",
    "address": "הפלמ\"ח 22 בת ים",
    "city": "בת ים",
-   "notes": "ערבית בסמוך",
-   "freshness": "current"
+   "notes": "",
+   "freshness": "current",
+   "pairing": "adjacent"
   },
   {
    "id": 651,
@@ -802,9 +807,10 @@
    "name": "הראל - בוכרים",
    "address": "",
    "city": "בת ים",
-   "notes": "ערבית בסמוך",
+   "notes": "",
    "freshness": "current",
-   "needsAddress": true
+   "needsAddress": true,
+   "pairing": "adjacent"
   },
   {
    "id": 652,
@@ -2308,12 +2314,11 @@
   {
    "id": 267,
    "category": "mincha",
-   "time": "לפני פלג המנחה",
-   "zmanReference": "plagHaMincha",
-   "offset": -25,
-   "name": "בית רבנו",
-   "address": "אהרונוביץ 92",
-   "notes": "25 דקות לפני פלג המנחה"
+   "time": "18:00",
+   "name": "בית רבינו",
+   "address": "אהרונוביץ 91",
+   "notes": "",
+   "pairing": "consecutive"
   },
   {
    "id": 268,
@@ -2338,66 +2343,66 @@
   {
    "id": 280,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "לפני השקיעה",
    "zmanReference": "sunset",
    "offset": -20,
    "name": "רבי עקיבא 6",
    "address": "רבי עקיבא 6",
-   "notes": "20 דקות לפני השקיעה"
+   "notes": "20 דקות לפני השקיעה",
+   "pairing": "consecutive"
   },
   {
    "id": 281,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "לפני השקיעה",
    "zmanReference": "sunset",
    "offset": -20,
    "name": "נחלת שלום",
    "address": "יהודה הלוי 31",
-   "notes": "כ-20 דקות לפני השקיעה"
+   "notes": "כ-20 דקות לפני השקיעה",
+   "pairing": "consecutive"
   },
   {
    "id": 282,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "לפני השקיעה",
    "zmanReference": "sunset",
    "offset": -15,
    "name": "אהבת שלום",
    "address": "אריק לביא 2",
-   "notes": "רבע שעה לפני השקיעה"
+   "notes": "רבע שעה לפני השקיעה",
+   "pairing": "consecutive"
   },
   {
    "id": 283,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "לפני השקיעה",
    "zmanReference": "sunset",
    "offset": -20,
    "name": "בית יצחק",
    "address": "ניסנבואים 8",
-   "notes": "20 דקות לפני השקיעה"
+   "notes": "20 דקות לפני השקיעה",
+   "pairing": "consecutive"
   },
   {
    "id": 284,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "17:00",
    "name": "באר האמונה",
    "address": "יוטבתה 24",
-   "notes": ""
+   "notes": "",
+   "pairing": "consecutive"
   },
   {
    "id": 285,
    "category": "mincha",
-   "subCategory": "mincha_arvit",
    "time": "לפני השקיעה",
    "zmanReference": "sunset",
    "offset": -45,
    "name": "אריק אינשטיין",
    "address": "אריק אינשטיין 7",
-   "notes": "כ-45 דקות לפני השקיעה מנחה"
+   "notes": "כ-45 דקות לפני השקיעה מנחה",
+   "pairing": "consecutive"
   },
   {
    "id": 1,
@@ -3438,7 +3443,7 @@
    "category": "shacharit",
    "time": "08:30",
    "name": "בית רבינו",
-   "address": "אהרונוביץ' 91",
+   "address": "אהרונוביץ 91",
    "notes": "ברוך שאמר"
   },
   {

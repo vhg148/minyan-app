@@ -13,10 +13,24 @@ export const CATEGORIES = {
 
 export const DEFAULT_CITY = 'חולון';
 
-/** תווית לתצוגה — מנחה+ערבית רצוף היא מקרה מיוחד */
+/** תווית הקטגוריה לתצוגה */
 export function categoryLabel(prayer) {
-  if (prayer.subCategory === 'mincha_arvit') return 'מנחה+ערבית';
   return CATEGORIES[prayer.category]?.label || '';
+}
+
+/**
+ * מניין שמצמיד מנחה וערבית. שני מצבים שונים באמת:
+ * consecutive — תפילה אחת רצופה, בלי הפסקה.
+ * adjacent    — ערבית מיד אחרי, בהפרש קצר.
+ * המידע הזה קובע אם אפשר לתפוס את שתיהן בנסיעה אחת, אז הוא תגית ולא הערה.
+ */
+export const PAIRING = {
+  consecutive: { id: 'consecutive', label: 'מנחה וערבית ברצף', short: 'מנחה+ערבית' },
+  adjacent: { id: 'adjacent', label: 'ערבית בסמוך', short: 'ערבית בסמוך' },
+};
+
+export function pairingOf(prayer) {
+  return PAIRING[prayer.pairing] || null;
 }
 
 /** מניינים עונתיים מקבלים את אותה צורה כמו תפילות הקבע, כדי שכל שאר

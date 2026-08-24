@@ -1,8 +1,8 @@
 import { Map as MapIcon, MapPin, Navigation } from 'lucide-react';
-import { CATEGORIES, categoryLabel, cityOf } from '../lib/prayers';
+import { CATEGORIES, categoryLabel, cityOf, pairingOf } from '../lib/prayers';
 import { countdownLabel, countdownTone } from '../lib/format';
 import { isClockTime } from '../lib/zmanim';
-import Tag, { Dot, FreshnessTag, Pulse } from './Tag';
+import Tag, { Dot, FreshnessTag, PairingTag, Pulse } from './Tag';
 
 const wazeUrl = (p) => `https://waze.com/ul?q=${encodeURIComponent(`${p.address} ${cityOf(p)}`)}`;
 const mapsUrl = (p) => `https://maps.google.com/?q=${encodeURIComponent(`${p.address} ${cityOf(p)}`)}`;
@@ -11,6 +11,7 @@ const mapsUrl = (p) => `https://maps.google.com/?q=${encodeURIComponent(`${p.add
 export default function PrayerCard({ prayer }) {
   const category = CATEGORIES[prayer.category];
   const tone = countdownTone(prayer.minutesAway);
+  const pairing = pairingOf(prayer);
 
   return (
     <article className="flex flex-col justify-between rounded-[12px] border border-line bg-surface transition-colors hover:border-line-strong">
@@ -42,6 +43,12 @@ export default function PrayerCard({ prayer }) {
           <h3 className="m-0 truncate text-[16px] font-semibold">{prayer.name}</h3>
           <span className="shrink-0 text-[11.5px] text-faint">{categoryLabel(prayer)}</span>
         </div>
+
+        {pairing && (
+          <div className="flex">
+            <PairingTag pairing={pairing} />
+          </div>
+        )}
 
         <div className="flex items-center gap-[6px] text-[13px] text-muted">
           <MapPin className="size-[14px] shrink-0 text-faint" />

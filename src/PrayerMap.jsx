@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { getCoordinates, HOLON_CENTER } from './coordinates';
-import { CATEGORIES, categoryLabel, cityOf } from './lib/prayers';
+import { CATEGORIES, categoryLabel, cityOf, pairingOf } from './lib/prayers';
 import { countdownLabel } from './lib/format';
+import { PairingTag } from './components/Tag';
 import 'leaflet/dist/leaflet.css';
 
 // הסימונים הם הדבר היחיד על המפה שנושא צבע — האריחים מסוננים ב-index.css.
@@ -157,6 +158,11 @@ function PopupBody({ prayer }) {
         <span className="text-[12.5px] text-muted">
           {prayer.address}, {cityOf(prayer)} · {categoryLabel(prayer)}
         </span>
+        {pairingOf(prayer) && (
+          <span className="flex pt-[2px]">
+            <PairingTag pairing={pairingOf(prayer)} />
+          </span>
+        )}
         {prayer.walkMinutes !== null && (
           <span className="text-[12.5px] font-medium text-ink-2">
             {prayer.walkMinutes} דקות הליכה

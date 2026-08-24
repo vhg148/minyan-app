@@ -1,8 +1,8 @@
 import { Footprints, Map as MapIcon, MapPin, Navigation } from 'lucide-react';
-import { CATEGORIES, categoryLabel, cityOf } from '../lib/prayers';
+import { CATEGORIES, categoryLabel, cityOf, pairingOf } from '../lib/prayers';
 import { formatDistance } from '../lib/geo';
 import { countdownLabel } from '../lib/format';
-import { Dot } from './Tag';
+import { Dot, PairingTag } from './Tag';
 
 const wazeUrl = (p) => `https://waze.com/ul?q=${encodeURIComponent(`${p.address} ${cityOf(p)}`)}`;
 const mapsUrl = (p) => `https://maps.google.com/?q=${encodeURIComponent(`${p.address} ${cityOf(p)}`)}`;
@@ -15,6 +15,7 @@ export default function NowCard({ prayer, reachable }) {
   if (!prayer) return null;
 
   const category = CATEGORIES[prayer.category];
+  const pairing = pairingOf(prayer);
 
   return (
     <div className="flex flex-wrap overflow-hidden rounded-[12px] border border-accent-line bg-surface shadow-[var(--shadow)] sm:flex-nowrap">
@@ -49,6 +50,7 @@ export default function NowCard({ prayer, reachable }) {
             <Dot color={category.color} />
             {categoryLabel(prayer)}
           </span>
+          <PairingTag pairing={pairing} />
         </div>
         {prayer.notes && (
           <p className="m-0 truncate text-[12.5px] text-faint">{prayer.notes}</p>

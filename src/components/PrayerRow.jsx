@@ -1,6 +1,6 @@
-import { CATEGORIES, categoryLabel, cityOf } from '../lib/prayers';
+import { CATEGORIES, categoryLabel, cityOf, pairingOf } from '../lib/prayers';
 import { countdownLabel, countdownTone } from '../lib/format';
-import Tag, { Dot, FreshnessTag, Pulse } from './Tag';
+import Tag, { Dot, FreshnessTag, PairingTag, Pulse } from './Tag';
 
 /**
  * שורת ספר-חשבונות: השעה בעמודה קבועה, השם והכתובת נסוגים לאפור,
@@ -9,6 +9,7 @@ import Tag, { Dot, FreshnessTag, Pulse } from './Tag';
 export default function PrayerRow({ prayer, selected, onSelect }) {
   const category = CATEGORIES[prayer.category];
   const tone = countdownTone(prayer.minutesAway);
+  const pairing = pairingOf(prayer);
 
   const details = [
     prayer.address || null,
@@ -47,6 +48,13 @@ export default function PrayerRow({ prayer, selected, onSelect }) {
           {details.join(' · ')}
           {prayer.notes && ` · ${prayer.notes}`}
         </span>
+        {/* שורה משלה: ליד השם היא מעכה אותו, ובשורת הפרטים היא חתכה את
+            הכתובת ל-49px מתוך 101 שהיא צריכה */}
+        {pairing && (
+          <span className="flex pt-[3px]">
+            <PairingTag pairing={pairing} short />
+          </span>
+        )}
       </span>
 
       <span
