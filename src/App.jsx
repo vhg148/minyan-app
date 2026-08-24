@@ -216,7 +216,9 @@ export default function App() {
 
         {activeTab !== 'selichot' && (
           <>
-            {activeTab === 'upcoming' && (
+            {/* הכרטיס עונה על "מה הכי קרוב עכשיו", לא על מה שחיפשת —
+                בזמן חיפוש הוא רק דוחף את התוצאות מתחת לקיפול */}
+            {activeTab === 'upcoming' && !query && (
               <NowCard prayer={highlight} reachable={highlightReachable} />
             )}
 
@@ -227,6 +229,7 @@ export default function App() {
               onSelect={selectPrayer}
               userLocation={userLocation}
               fitKey={activeTab}
+              searchActive={query.trim() !== ''}
               empty={<EmptyState query={query} onClear={() => setQuery('')} />}
             />
 
