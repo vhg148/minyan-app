@@ -1,0 +1,835 @@
+<title>מניין 148</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap">
+<style>
+  /* ── tokens ─────────────────────────────────────────────── */
+  :root {
+    --paper:#FAFAFA; --surface:#FFFFFF; --surface-2:#F4F4F5; --surface-3:#EFEFF1;
+    --line:#E4E4E7; --line-strong:#D4D4D8;
+    --ink:#09090B; --ink-2:#3F3F46; --muted:#71717A; --faint:#A1A1AA;
+    --accent:#2563EB; --accent-ink:#1D4ED8; --accent-soft:#EFF6FF; --accent-line:#BFDBFE;
+    --live:#047857; --live-soft:#ECFDF5; --live-line:#A7F3D0;
+    --warn:#B45309; --warn-soft:#FFFBEB; --warn-line:#FDE68A;
+    --c-shacharit:#0EA5E9; --c-mincha:#F59E0B; --c-arvit:#6366F1; --c-selichot:#A855F7;
+    --r:8px; --r-lg:12px;
+    --shadow:0 1px 2px rgba(9,9,11,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#0A0A0C; --surface:#141417; --surface-2:#1B1B1F; --surface-3:#232328;
+      --line:#27272A; --line-strong:#3F3F46;
+      --ink:#FAFAFA; --ink-2:#D4D4D8; --muted:#8E8E96; --faint:#6B6B73;
+      --accent:#4D8DFF; --accent-ink:#8AB4FF; --accent-soft:#12213D; --accent-line:#1E3A6B;
+      --live:#34D399; --live-soft:#0B241C; --live-line:#14532D;
+      --warn:#FBBF24; --warn-soft:#241B08; --warn-line:#4A3308;
+      --c-shacharit:#38BDF8; --c-mincha:#FBBF24; --c-arvit:#818CF8; --c-selichot:#C084FC;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#0A0A0C; --surface:#141417; --surface-2:#1B1B1F; --surface-3:#232328;
+    --line:#27272A; --line-strong:#3F3F46;
+    --ink:#FAFAFA; --ink-2:#D4D4D8; --muted:#8E8E96; --faint:#6B6B73;
+    --accent:#4D8DFF; --accent-ink:#8AB4FF; --accent-soft:#12213D; --accent-line:#1E3A6B;
+    --live:#34D399; --live-soft:#0B241C; --live-line:#14532D;
+    --warn:#FBBF24; --warn-soft:#241B08; --warn-line:#4A3308;
+    --c-shacharit:#38BDF8; --c-mincha:#FBBF24; --c-arvit:#818CF8; --c-selichot:#C084FC;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0; direction:rtl; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans Hebrew",-apple-system,"Segoe UI",Arial,sans-serif;
+    font-weight:400; font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* ── sketch ribbon ──────────────────────────────────────── */
+  .ribbon{
+    background:var(--surface-2); border-bottom:1px solid var(--line);
+    padding:10px 20px; font-size:12.5px; color:var(--muted);
+    display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;
+  }
+  .ribbon b{color:var(--ink-2); font-weight:600}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+
+  /* ── header ─────────────────────────────────────────────── */
+  header{
+    background:var(--surface); border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:30;
+  }
+  .head{display:flex; align-items:center; justify-content:space-between; gap:16px; height:60px}
+  .brand{display:flex; align-items:baseline; gap:9px}
+  .brand .mark{font-weight:700; font-size:17px; letter-spacing:-.015em}
+  .brand .sub{font-size:12px; color:var(--muted); font-weight:400}
+  .head-right{display:flex; align-items:center; gap:8px}
+  .clock{
+    display:flex; align-items:baseline; gap:7px; padding:5px 11px;
+    border:1px solid var(--line); border-radius:var(--r); background:var(--surface-2);
+  }
+  .clock .t{font-size:15px; font-weight:600; letter-spacing:.01em}
+  .clock .l{font-size:11px; color:var(--muted)}
+  .icon-btn{
+    width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    color:var(--ink-2); transition:background .18s ease,border-color .18s ease;
+  }
+  .icon-btn:hover{background:var(--surface-2); border-color:var(--line-strong)}
+  .icon-btn svg{width:17px; height:17px}
+  :root[data-theme="dark"] .sun,:root:not([data-theme="light"]) .sun{display:block}
+  .moon{display:block} .sun{display:none}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .moon{display:none}:root:not([data-theme="light"]) .sun{display:block}}
+  :root[data-theme="dark"] .moon{display:none} :root[data-theme="dark"] .sun{display:block}
+  :root[data-theme="light"] .moon{display:block} :root[data-theme="light"] .sun{display:none}
+
+  /* ── zmanim strip ───────────────────────────────────────── */
+  .zmanim{
+    display:flex; overflow-x:auto; border-bottom:1px solid var(--line);
+    background:var(--surface); scrollbar-width:none;
+  }
+  .zmanim::-webkit-scrollbar{display:none}
+  .z{
+    flex:1 0 auto; min-width:96px; padding:11px 14px; text-align:center;
+    border-inline-start:1px solid var(--line);
+  }
+  .z:first-child{border-inline-start:0}
+  .z .lbl{display:block; font-size:10.5px; color:var(--muted); letter-spacing:.06em; font-weight:500; margin-bottom:3px}
+  .z .val{display:block; font-size:16px; font-weight:600; letter-spacing:.005em}
+  .z.is-next .val{color:var(--accent)}
+
+  /* ── controls ───────────────────────────────────────────── */
+  .controls{display:flex; gap:8px; margin:18px 0 14px}
+  .search{position:relative; flex:1}
+  .search svg{position:absolute; inset-inline-start:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--faint)}
+  .search input{
+    width:100%; height:40px; padding-inline:36px 12px; font:inherit; font-size:14px;
+    background:var(--surface); color:var(--ink);
+    border:1px solid var(--line); border-radius:var(--r); transition:border-color .18s ease;
+  }
+  .search input::placeholder{color:var(--faint)}
+  .search input:focus{outline:none; border-color:var(--accent)}
+  .btn{
+    display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 14px; cursor:pointer;
+    font:inherit; font-size:13.5px; font-weight:500; white-space:nowrap;
+    background:var(--surface); color:var(--ink-2);
+    border:1px solid var(--line); border-radius:var(--r);
+    transition:background .18s ease,border-color .18s ease,color .18s ease;
+  }
+  .btn:hover{background:var(--surface-2); border-color:var(--line-strong)}
+  .btn svg{width:15px; height:15px}
+  .btn.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+  .btn.on:hover{background:var(--ink-2); border-color:var(--ink-2)}
+
+  /* segmented */
+  .seg{
+    display:flex; padding:3px; gap:2px; background:var(--surface-2);
+    border:1px solid var(--line); border-radius:var(--r-lg); overflow-x:auto; scrollbar-width:none;
+  }
+  .seg::-webkit-scrollbar{display:none}
+  .seg button{
+    flex:1 0 auto; padding:7px 15px; cursor:pointer; font:inherit; font-size:13.5px; font-weight:500;
+    background:transparent; color:var(--muted); border:0; border-radius:7px; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:6px; transition:background .18s ease,color .18s ease;
+  }
+  .seg button:hover{color:var(--ink-2)}
+  .seg button[aria-selected="true"]{background:var(--surface); color:var(--ink); font-weight:600; box-shadow:var(--shadow)}
+  .seg .dot{width:6px; height:6px; border-radius:50%; flex:none}
+  .seg .badge{
+    font-size:10.5px; font-weight:600; padding:1px 6px; border-radius:20px;
+    background:var(--c-selichot); color:#fff; letter-spacing:.02em;
+  }
+
+  /* chips row */
+  .chips{display:flex; gap:6px; flex-wrap:wrap; margin:12px 0 20px; align-items:center}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px; padding:5px 11px; cursor:pointer;
+    font:inherit; font-size:12.5px; font-weight:500; color:var(--muted);
+    background:var(--surface); border:1px solid var(--line); border-radius:20px;
+    transition:background .18s ease,border-color .18s ease,color .18s ease;
+  }
+  .chip:hover{border-color:var(--line-strong); color:var(--ink-2)}
+  .chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+  .chip .dot{width:6px; height:6px; border-radius:50%; flex:none}
+  .chips .sep{width:1px; height:18px; background:var(--line); margin:0 4px}
+
+  /* ── section heads ──────────────────────────────────────── */
+  .sec-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    padding-bottom:9px; margin-bottom:0; border-bottom:1px solid var(--line);
+  }
+  .sec-head h2{margin:0; font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--muted)}
+  .sec-head .meta{font-size:12px; color:var(--faint)}
+
+  /* ── hero (now) ─────────────────────────────────────────── */
+  .hero{
+    display:flex; align-items:stretch; gap:0; margin:20px 0 26px;
+    background:var(--surface); border:1px solid var(--accent-line); border-radius:var(--r-lg);
+    overflow:hidden; box-shadow:var(--shadow);
+  }
+  .hero-time{
+    flex:none; width:150px; padding:20px 18px; background:var(--accent-soft);
+    border-inline-end:1px solid var(--accent-line);
+    display:flex; flex-direction:column; justify-content:center; gap:2px;
+  }
+  .hero-time .t{font-size:38px; font-weight:700; letter-spacing:-.03em; line-height:1; color:var(--accent-ink)}
+  .hero-time .in{font-size:12.5px; font-weight:500; color:var(--accent)}
+  .hero-body{flex:1; padding:16px 18px; display:flex; flex-direction:column; justify-content:center; gap:5px; min-width:0}
+  .hero-eyebrow{font-size:10.5px; font-weight:600; letter-spacing:.1em; color:var(--accent)}
+  .hero-body h3{margin:0; font-size:19px; font-weight:600; letter-spacing:-.015em}
+  .hero-meta{display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:13px; color:var(--muted)}
+  .hero-meta span{display:inline-flex; align-items:center; gap:5px}
+  .hero-meta svg{width:14px; height:14px; color:var(--faint)}
+  .hero-meta .walk{color:var(--ink-2); font-weight:500}
+  .hero-act{
+    flex:none; display:flex; flex-direction:column; border-inline-start:1px solid var(--line);
+  }
+  .hero-act a{
+    flex:1; display:flex; align-items:center; gap:6px; padding:0 18px; text-decoration:none;
+    font-size:13px; font-weight:500; color:var(--ink-2); transition:background .18s ease;
+  }
+  .hero-act a:hover{background:var(--surface-2)}
+  .hero-act a + a{border-top:1px solid var(--line)}
+  .hero-act svg{width:15px; height:15px; color:var(--faint)}
+
+  /* ── ledger list ────────────────────────────────────────── */
+  .ledger{border-bottom:1px solid var(--line)}
+  .row{
+    display:flex; align-items:center; gap:14px; padding:11px 4px; cursor:pointer;
+    border-bottom:1px solid var(--line); transition:background .15s ease;
+  }
+  .row:last-child{border-bottom:0}
+  .row:hover{background:var(--surface-2)}
+  .row.sel{background:var(--surface-2); box-shadow:inset -2px 0 0 var(--ink)}
+  .row-time{
+    flex:none; width:64px; text-align:start;
+    font-size:19px; font-weight:600; letter-spacing:-.01em; line-height:1.2;
+  }
+  .row-main{flex:1; min-width:0; display:flex; flex-direction:column; gap:1px}
+  .row-name{display:flex; align-items:center; gap:7px; min-width:0}
+  .row-name .dot{width:6px; height:6px; border-radius:50%; flex:none}
+  .row-name b{font-size:14.5px; font-weight:600; letter-spacing:-.005em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .row-sub{font-size:12.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .row-sub .walk{color:var(--ink-2); font-weight:500}
+  .row-sub .city{color:var(--faint)}
+  .row-end{flex:none; display:flex; align-items:center; gap:8px}
+
+  .tag{
+    display:inline-flex; align-items:center; gap:4px; padding:2.5px 8px; border-radius:20px;
+    font-size:11.5px; font-weight:600; letter-spacing:.01em; white-space:nowrap;
+    border:1px solid transparent;
+  }
+  .tag.live{background:var(--live-soft); color:var(--live); border-color:var(--live-line)}
+  .tag.next{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-line)}
+  .tag.quiet{background:var(--surface-2); color:var(--muted); border-color:var(--line)}
+  .tag.stale{background:var(--warn-soft); color:var(--warn); border-color:var(--warn-line)}
+  .tag .pulse{width:5px; height:5px; border-radius:50%; background:currentColor}
+  .cat{font-size:11.5px; color:var(--faint); font-weight:500; min-width:44px; text-align:start}
+
+  /* ── split: map + list ──────────────────────────────────── */
+  .split{
+    display:flex; height:min(560px,70vh); margin-top:14px;
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--r-lg); overflow:hidden;
+  }
+  .pane-list{
+    flex:0 0 38%; min-width:0; overflow-y:auto; scrollbar-width:thin;
+    border-inline-end:1px solid var(--line); padding:0 12px;
+  }
+  .pane-list .sec-head{position:sticky; top:0; background:var(--surface); padding-top:12px; z-index:5}
+  /* compact rows inside the narrow pane — the dot already carries the category */
+  .pane-list .cat{display:none}
+  .pane-list .row{align-items:flex-start; gap:11px; padding:10px 2px}
+  .pane-list .row-time{width:56px; font-size:18px; padding-top:1px}
+  .pane-list .row-end{flex-direction:column; align-items:flex-end; gap:4px; padding-top:1px}
+  .pane-map{flex:1 1 62%; position:relative; background:var(--surface-2); min-width:0}
+
+  /* tile surface — stands in for OSM tiles under a desaturating filter */
+  .tiles{position:absolute; inset:0; filter:var(--tile-filter)}
+  :root{--tile-filter:saturate(.18) contrast(.96) brightness(1.02)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tile-filter:invert(1) hue-rotate(180deg) saturate(.14) brightness(.88) contrast(1.05)}}
+  :root[data-theme="dark"]{--tile-filter:invert(1) hue-rotate(180deg) saturate(.14) brightness(.88) contrast(1.05)}
+  .tiles svg{width:100%; height:100%; display:block}
+
+  .pin{
+    position:absolute; transform:translate(-50%,-50%); cursor:pointer;
+    width:13px; height:13px; border-radius:50%;
+    border:2px solid var(--surface); box-shadow:0 0 0 1px rgba(0,0,0,.16);
+    transition:width .18s ease,height .18s ease;
+  }
+  .pin:hover{width:16px; height:16px}
+  .pin.is-sel{
+    width:20px; height:20px; border-width:3px; z-index:4;
+    box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 0 7px color-mix(in srgb,var(--ink) 12%,transparent);
+  }
+  .me{
+    position:absolute; transform:translate(-50%,-50%); width:14px; height:14px; border-radius:50%;
+    background:var(--accent); border:2.5px solid var(--surface);
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent),0 0 0 16px color-mix(in srgb,var(--accent) 10%,transparent);
+  }
+  /* marker + popup share one anchor, the way a Leaflet latlng does */
+  .sel-anchor{position:absolute; top:47%}
+  .sel-anchor .pin{left:0; top:0}
+  .popup{
+    position:absolute; z-index:6; width:230px; left:0; top:0;
+    transform:translate(-50%,calc(-100% - 18px));
+    background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r);
+    box-shadow:0 6px 20px rgba(9,9,11,.13); overflow:hidden;
+  }
+  :root[data-theme="dark"] .popup,:root:not([data-theme="light"]) .popup{box-shadow:0 6px 24px rgba(0,0,0,.55)}
+  .popup::after{
+    content:""; position:absolute; bottom:-6px; left:calc(50% - 5px); width:10px; height:10px;
+    background:var(--surface); border-inline-start:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);
+    transform:rotate(-45deg);
+  }
+  .popup-top{display:flex; align-items:baseline; gap:8px; padding:11px 13px 9px}
+  .popup-top .t{font-size:21px; font-weight:700; letter-spacing:-.02em; line-height:1}
+  .popup-top .tag{margin-inline-start:auto}
+  .popup-mid{padding:0 13px 11px; display:flex; flex-direction:column; gap:2px}
+  .popup-mid b{font-size:14.5px; font-weight:600}
+  .popup-mid span{font-size:12.5px; color:var(--muted)}
+  .popup-mid .walk{color:var(--ink-2); font-weight:500}
+  .popup-act{display:flex; border-top:1px solid var(--line)}
+  .popup-act a{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:5px; padding:8px 0;
+    font-size:12.5px; font-weight:500; color:var(--ink-2); text-decoration:none; transition:background .18s ease;
+  }
+  .popup-act a:hover{background:var(--surface-2)}
+  .popup-act a + a{border-inline-start:1px solid var(--line)}
+  .popup-act svg{width:13px; height:13px; color:var(--faint)}
+
+  .map-ui{position:absolute; z-index:5; display:flex; gap:6px}
+  .map-ui.tl{top:10px; inset-inline-start:10px; flex-direction:column}
+  .map-ui.tr{top:10px; inset-inline-end:10px; flex-wrap:wrap; max-width:70%}
+  .map-ui.br{bottom:10px; inset-inline-start:10px}
+  .mbtn{
+    width:30px; height:30px; display:grid; place-items:center; cursor:pointer;
+    background:var(--surface); color:var(--ink-2); border:1px solid var(--line);
+    border-radius:7px; font:inherit; font-size:15px; box-shadow:var(--shadow);
+    transition:background .18s ease;
+  }
+  .mbtn:hover{background:var(--surface-2)}
+  .mbtn svg{width:15px; height:15px}
+  .legend{
+    display:flex; align-items:center; gap:9px; padding:5px 10px;
+    background:color-mix(in srgb,var(--surface) 92%,transparent); backdrop-filter:blur(6px);
+    border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow);
+    font-size:11.5px; color:var(--muted); font-weight:500;
+  }
+  .legend i{display:inline-flex; align-items:center; gap:4px; font-style:normal}
+  .legend .dot{width:7px; height:7px; border-radius:50%}
+  .map-cap{
+    display:flex; gap:8px; align-items:flex-start; margin-top:9px;
+    font-size:12px; color:var(--faint); line-height:1.55;
+  }
+  .map-cap svg{width:14px; height:14px; flex:none; margin-top:2px}
+  .map-cap b{color:var(--muted); font-weight:600}
+
+  /* ── selichot ───────────────────────────────────────────── */
+  .slot-head{
+    display:flex; align-items:center; gap:12px; padding:16px 4px 8px;
+    position:sticky; top:60px; background:var(--paper); z-index:10;
+  }
+  .slot-head .k{
+    font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--c-selichot);
+    padding:3px 9px; border:1px solid var(--line); border-radius:20px; background:var(--surface);
+  }
+  .slot-head .n{font-size:12.5px; color:var(--muted)}
+  .slot-head .rule{flex:1; height:1px; background:var(--line)}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:0 22px}
+  .g-row{
+    display:flex; align-items:baseline; gap:11px; padding:8px 4px;
+    border-bottom:1px solid var(--line); cursor:pointer; transition:background .15s ease;
+  }
+  .g-row:hover{background:var(--surface-2)}
+  .g-row .t{flex:none; width:46px; font-size:14px; font-weight:600; color:var(--ink-2)}
+  .g-row .n{flex:1; min-width:0; font-size:14px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .g-row .a{flex:none; font-size:12px; color:var(--muted)}
+
+  /* ── notes ──────────────────────────────────────────────── */
+  .note{
+    display:flex; gap:11px; padding:13px 15px; margin:26px 0;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    font-size:13px; color:var(--muted); line-height:1.6;
+  }
+  .note svg{width:16px; height:16px; flex:none; margin-top:2px; color:var(--faint)}
+  .note b{color:var(--ink-2); font-weight:600}
+  .note.warn{background:var(--warn-soft); border-color:var(--warn-line); color:var(--warn)}
+  .note.warn svg,.note.warn b{color:var(--warn)}
+
+  .block{margin:44px 0}
+  .block-label{
+    font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--faint);
+    padding-bottom:8px; margin-bottom:16px; border-bottom:1px solid var(--line-strong);
+  }
+  footer{border-top:1px solid var(--line); margin-top:52px; padding:22px 0 40px; font-size:12.5px; color:var(--faint)}
+
+  @media (max-width:720px){
+    .wrap{padding:0 14px}
+    .hero{flex-wrap:wrap}
+    .hero-time{width:100%; border-inline-end:0; border-bottom:1px solid var(--accent-line); flex-direction:row; align-items:baseline; gap:10px; padding:14px 16px}
+    .hero-act{flex-direction:row; width:100%; border-inline-start:0; border-top:1px solid var(--line)}
+    .hero-act a{justify-content:center; padding:11px 0}
+    .hero-act a + a{border-top:0; border-inline-start:1px solid var(--line)}
+    .row-time{width:52px; font-size:17px}
+    .cat{display:none}
+    .grid{grid-template-columns:1fr}
+    .popup{width:200px}
+  }
+
+  /* the split needs real width for both panes — stack it before it gets cramped */
+  @media (max-width:960px){
+    .split{flex-direction:column; height:auto}
+    .pane-map{flex:none; height:250px; order:1; border-bottom:1px solid var(--line)}
+    .pane-list{flex:none; order:2; border-inline-end:0; overflow:visible; padding:0 14px 6px}
+    .pane-list .cat{display:block}
+    .pane-list .row{align-items:center; gap:14px; padding:11px 2px}
+    .pane-list .row-end{flex-direction:row; align-items:center; gap:8px}
+    /* short map — anchor higher and hang the popup below the marker, so neither
+       edge clips it (Leaflet does this with autoPan; here it is a fixed flip) */
+    .sel-anchor{top:20%}
+    .popup{transform:translate(-50%,18px)}
+    .popup::after{bottom:auto; top:-6px; border:0; border-top:1px solid var(--line-strong); border-inline-end:1px solid var(--line-strong)}
+  }
+</style>
+
+<div class="ribbon">
+  <b>סקיצת עיצוב</b> · לא קוד חי — נתונים אמיתיים משתי ההודעות, שעה מוקפאת על <span class="num">17:38</span>, מיקום פעיל.
+  <span>לחצו על אייקון היום/לילה בכותרת כדי לבדוק את שתי הערכות.</span>
+</div>
+
+<header>
+  <div class="wrap head">
+    <div class="brand">
+      <span class="mark">מניין 148</span>
+      <span class="sub">חולון · בת ים</span>
+    </div>
+    <div class="head-right">
+      <div class="clock">
+        <span class="l">עכשיו</span>
+        <span class="t num">17:38</span>
+      </div>
+      <button class="icon-btn" id="theme" aria-label="החלפת ערכת נושא">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="zmanim">
+    <div class="z"><span class="lbl">עלות השחר</span><span class="val num">04:44</span></div>
+    <div class="z"><span class="lbl">הנץ החמה</span><span class="val num">06:10</span></div>
+    <div class="z"><span class="lbl">סוף ק״ש גר״א</span><span class="val num">09:24</span></div>
+    <div class="z"><span class="lbl">חצות היום</span><span class="val num">12:45</span></div>
+    <div class="z"><span class="lbl">מנחה גדולה</span><span class="val num">13:19</span></div>
+    <div class="z"><span class="lbl">מנחה קטנה</span><span class="val num">16:39</span></div>
+    <div class="z is-next"><span class="lbl">פלג המנחה</span><span class="val num">18:17</span></div>
+    <div class="z"><span class="lbl">שקיעה</span><span class="val num">19:25</span></div>
+    <div class="z"><span class="lbl">צאת הכוכבים</span><span class="val num">19:48</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" placeholder="שם מניין, רחוב או שעה" aria-label="חיפוש מניין">
+    </div>
+    <button class="btn on">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2"/><circle cx="12" cy="12" r="8"/></svg>
+      מיקום פעיל
+    </button>
+  </div>
+
+  <div class="seg" role="tablist">
+    <button role="tab" aria-selected="true">קרובות</button>
+    <button role="tab" aria-selected="false"><span class="dot" style="background:var(--c-shacharit)"></span>שחרית</button>
+    <button role="tab" aria-selected="false"><span class="dot" style="background:var(--c-mincha)"></span>מנחה</button>
+    <button role="tab" aria-selected="false"><span class="dot" style="background:var(--c-arvit)"></span>ערבית</button>
+    <button role="tab" aria-selected="false"><span class="dot" style="background:var(--c-selichot)"></span>סליחות<span class="badge">אלול</span></button>
+  </div>
+
+  <div class="chips">
+    <button class="chip" aria-pressed="true">הכל</button>
+    <button class="chip" aria-pressed="false">חולון</button>
+    <button class="chip" aria-pressed="false">בת ים</button>
+    <span class="sep"></span>
+    <button class="chip" aria-pressed="true"><span class="dot" style="background:var(--c-selichot)"></span>כולל סליחות</button>
+    <button class="chip" aria-pressed="false">עד 10 דק׳ הליכה</button>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-time">
+      <span class="t num">17:40</span>
+      <span class="in">בעוד 2 דקות</span>
+    </div>
+    <div class="hero-body">
+      <span class="hero-eyebrow">הכי קרוב שתספיק</span>
+      <h3>אהבת ישראל</h3>
+      <div class="hero-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>אילת 18, חולון</span>
+        <span class="walk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m9 21 2-5 2.5-2.5L15 11l3 2M11 16l-1.5-4L12 9l3 1 2 3"/></svg>4 דקות הליכה · 310 מ׳</span>
+        <span><span class="dot" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c-selichot)"></span>סליחות</span>
+      </div>
+    </div>
+    <div class="hero-act">
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></svg>Waze</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3 6 3 6-3v15l-6 3-6-3-6 3V6z"/><path d="M9 3v15M15 6v15"/></svg>מפות</a>
+    </div>
+  </div>
+
+  <!-- ── SPLIT: list (right) + map (left) ─────────────── -->
+  <div class="split">
+
+  <div class="pane-list">
+  <div class="sec-head">
+    <h2>התפילות הבאות</h2>
+    <span class="meta">37 בשעה הקרובה</span>
+  </div>
+
+  <div class="ledger">
+    <div class="row">
+      <span class="row-time num">17:35</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>צדיקי מרוקו</b></span>
+        <span class="row-sub">פלג המנחה · <span class="city">בת ים</span></span>
+      </span>
+      <span class="row-end"><span class="tag live"><span class="pulse"></span>התחיל לפני 3 דק׳</span></span>
+    </div>
+
+    <div class="row sel">
+      <span class="row-time num">17:38</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>אבני הנחל</b></span>
+        <span class="row-sub"><span class="city">בת ים</span> · <span class="walk">11 דק׳ הליכה</span></span>
+      </span>
+      <span class="row-end"><span class="tag live"><span class="pulse"></span>מתחיל עכשיו</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:40</span>
+      <span class="cat">סליחות</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-selichot)"></span><b>אהבת ישראל</b></span>
+        <span class="row-sub">אילת 18 · <span class="city">חולון</span> · <span class="walk">4 דק׳ הליכה</span></span>
+      </span>
+      <span class="row-end"><span class="tag next">בעוד 2 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:40</span>
+      <span class="cat">סליחות</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-selichot)"></span><b>בית דוד</b></span>
+        <span class="row-sub">ברקת 19 · <span class="city">חולון</span> · <span class="walk">7 דק׳ הליכה</span></span>
+      </span>
+      <span class="row-end"><span class="tag next">בעוד 2 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:40</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>המייש״ר</b></span>
+        <span class="row-sub"><span class="city">בת ים</span></span>
+      </span>
+      <span class="row-end"><span class="tag next">בעוד 2 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:40</span>
+      <span class="cat">סליחות</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-selichot)"></span><b>ריב״ז</b></span>
+        <span class="row-sub">סעדיה גאון 21 · <span class="city">חולון</span> · <span class="walk">9 דק׳ הליכה</span></span>
+      </span>
+      <span class="row-end"><span class="tag next">בעוד 2 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:41</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>בית אל</b></span>
+        <span class="row-sub"><span class="city">בת ים</span></span>
+      </span>
+      <span class="row-end"><span class="tag next">בעוד 3 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:45</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>החיד״א</b></span>
+        <span class="row-sub">ערבית בסמוך · <span class="city">בת ים</span></span>
+      </span>
+      <span class="row-end"><span class="tag quiet">בעוד 7 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">17:45</span>
+      <span class="cat">מנחה</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-mincha)"></span><b>קדושי עם ישראל</b></span>
+        <span class="row-sub">מנחה פלג · קורבנות · <span class="city">בת ים</span></span>
+      </span>
+      <span class="row-end"><span class="tag quiet">בעוד 7 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">18:00</span>
+      <span class="cat">סליחות</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-selichot)"></span><b>מגן דוד</b></span>
+        <span class="row-sub">הופיין 17 · <span class="city">חולון</span> · <span class="walk">6 דק׳ הליכה</span></span>
+      </span>
+      <span class="row-end"><span class="tag quiet">בעוד 22 דק׳</span></span>
+    </div>
+
+    <div class="row">
+      <span class="row-time num">18:20</span>
+      <span class="cat">ערבית</span>
+      <span class="row-main">
+        <span class="row-name"><span class="dot" style="background:var(--c-arvit)"></span><b>עדת ישורון</b></span>
+        <span class="row-sub">סביון 7 · <span class="city">חולון</span></span>
+      </span>
+      <span class="row-end">
+        <span class="tag stale">לא עודכן</span>
+        <span class="tag quiet">בעוד 42 דק׳</span>
+      </span>
+    </div>
+  </div>
+  </div><!-- /pane-list -->
+
+  <div class="pane-map">
+    <div class="tiles">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="600" height="400" fill="#EDEFF1"/>
+        <g fill="#E4E7EA">
+          <rect x="24" y="24" width="96" height="52" rx="3"/><rect x="152" y="24" width="130" height="52" rx="3"/>
+          <rect x="326" y="30" width="112" height="46" rx="3"/><rect x="470" y="24" width="106" height="52" rx="3"/>
+          <rect x="24" y="112" width="96" height="74" rx="3"/><rect x="152" y="112" width="60" height="74" rx="3"/>
+          <rect x="240" y="112" width="42" height="74" rx="3"/><rect x="470" y="112" width="106" height="74" rx="3"/>
+          <rect x="24" y="228" width="96" height="66" rx="3"/><rect x="152" y="228" width="130" height="66" rx="3"/>
+          <rect x="326" y="228" width="112" height="66" rx="3"/><rect x="470" y="228" width="106" height="66" rx="3"/>
+          <rect x="24" y="336" width="96" height="42" rx="3"/><rect x="152" y="336" width="130" height="42" rx="3"/>
+          <rect x="470" y="336" width="106" height="42" rx="3"/>
+        </g>
+        <rect x="326" y="112" width="112" height="74" rx="5" fill="#DFE8DC"/>
+        <rect x="326" y="336" width="112" height="42" rx="5" fill="#DFE8DC"/>
+        <g stroke="#D6DADF" fill="none" stroke-linecap="round">
+          <g stroke-width="11"><path d="M0 94h600"/><path d="M0 206h600"/><path d="M0 314h600"/><path d="M136 0v400"/><path d="M304 0v400"/><path d="M454 0v400"/></g>
+          <g stroke-width="7"><path d="M0 150h600"/><path d="M0 262h600"/><path d="M226 0v400"/><path d="M382 0v400"/><path d="M74 0v400"/><path d="M540 0v400"/></g>
+          <g stroke-width="4.5"><path d="M0 46h600"/><path d="M0 358h600"/><path d="M0 400 250 94"/><path d="M600 20 372 400"/></g>
+        </g>
+        <g stroke="#FCFCFD" fill="none" stroke-linecap="round">
+          <g stroke-width="7.5"><path d="M0 94h600"/><path d="M0 206h600"/><path d="M0 314h600"/><path d="M136 0v400"/><path d="M304 0v400"/><path d="M454 0v400"/></g>
+          <g stroke-width="4"><path d="M0 150h600"/><path d="M0 262h600"/><path d="M226 0v400"/><path d="M382 0v400"/><path d="M74 0v400"/><path d="M540 0v400"/></g>
+          <g stroke-width="2.2"><path d="M0 46h600"/><path d="M0 358h600"/><path d="M0 400 250 94"/><path d="M600 20 372 400"/></g>
+        </g>
+      </svg>
+    </div>
+
+    <span class="me" style="left:47%; top:57%" aria-hidden="true"></span>
+
+    <span class="pin" style="left:26%; top:23%; background:var(--c-arvit)"></span>
+    <span class="pin" style="left:63%; top:18%; background:var(--c-mincha)"></span>
+    <span class="pin" style="left:78%; top:31%; background:var(--c-selichot)"></span>
+    <span class="pin" style="left:19%; top:44%; background:var(--c-selichot)"></span>
+    <span class="pin" style="left:34%; top:69%; background:var(--c-mincha)"></span>
+    <span class="pin" style="left:57%; top:78%; background:var(--c-arvit)"></span>
+    <span class="pin" style="left:71%; top:63%; background:var(--c-shacharit)"></span>
+    <span class="pin" style="left:85%; top:72%; background:var(--c-mincha)"></span>
+    <span class="pin" style="left:12%; top:76%; background:var(--c-selichot)"></span>
+    <span class="pin" style="left:44%; top:36%; background:var(--c-mincha)"></span>
+    <div class="sel-anchor" style="left:41%">
+    <span class="pin is-sel" style="background:var(--c-selichot)"></span>
+
+    <div class="popup">
+      <div class="popup-top">
+        <span class="t num">17:40</span>
+        <span class="tag next">בעוד 2 דק׳</span>
+      </div>
+      <div class="popup-mid">
+        <b>אהבת ישראל</b>
+        <span>אילת 18, חולון · סליחות</span>
+        <span class="walk">4 דקות הליכה · 310 מ׳</span>
+      </div>
+      <div class="popup-act">
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></svg>Waze</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3 6 3 6-3v15l-6 3-6-3-6 3V6z"/><path d="M9 3v15M15 6v15"/></svg>מפות</a>
+      </div>
+    </div>
+    </div><!-- /sel-anchor -->
+
+    <div class="map-ui tl">
+      <button class="mbtn" aria-label="התקרבות">+</button>
+      <button class="mbtn" aria-label="התרחקות">−</button>
+      <button class="mbtn" aria-label="מרכוז על המיקום שלי">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2"/></svg>
+      </button>
+    </div>
+
+    <div class="map-ui br">
+      <div class="legend">
+        <i><span class="dot" style="background:var(--c-shacharit)"></span>שחרית</i>
+        <i><span class="dot" style="background:var(--c-mincha)"></span>מנחה</i>
+        <i><span class="dot" style="background:var(--c-arvit)"></span>ערבית</i>
+        <i><span class="dot" style="background:var(--c-selichot)"></span>סליחות</i>
+      </div>
+    </div>
+  </div><!-- /pane-map -->
+
+  </div><!-- /split -->
+
+  <p class="map-cap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3 6 3 6-3v15l-6 3-6-3-6 3V6z"/><path d="M9 3v15M15 6v15"/></svg>
+    <span>
+      <b>אריחי המפה עוברים סינון</b> כדי לא להילחם בממשק: <span class="num">saturate(.18)</span> במצב יום,
+      ובמצב לילה <span class="num">invert(1) hue-rotate(180deg)</span> — מפה כהה אמיתית מאותם אריחי OpenStreetMap, בלי שכבת תשלום.
+      הסימונים הם היחידים שנושאים צבע.
+    </span>
+  </p>
+
+  <div class="note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+    <span>
+      <b>סימון רעננות פר-מניין</b> מחליף את באנר האזהרה הגורף. מניין עם תגית <span class="tag stale" style="font-size:10.5px">לא עודכן</span>
+      הוא כזה שלא הופיע בהודעה השבועית האחרונה — 20 מניינים בבת ים במצב הזה כרגע.
+    </span>
+  </div>
+
+  <!-- ── SELICHOT ─────────────────────────────────────── -->
+  <div class="block">
+    <div class="block-label">מסך הסליחות</div>
+
+    <div class="sec-head">
+      <h2>סליחות · אלול תשפ״ו</h2>
+      <span class="meta">93 מניינים בחולון · פעיל עד יום כיפור, 21.09</span>
+    </div>
+
+    <div class="slot-head">
+      <span class="k">חצות הלילה</span>
+      <span class="n num">00:00 · 22 מניינים</span>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+      <div class="g-row"><span class="t num">00:00</span><span class="n">אהבה ואחווה</span><span class="a">לבון 1</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">אור ציון</span><span class="a">התחייה 14</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">אור תורה</span><span class="a">ביה״ס אריאל שרון</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">באר האמונה</span><span class="a">יוטבתה 24</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">בית דוד</span><span class="a">ברקת 19</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">בית יצחק</span><span class="a">הרב ניסנבאום 9</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">בית כורש</span><span class="a">המצודה 1</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">בית רבינו</span><span class="a">אהרונוביץ 91</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">בן פורת יוסף</span><span class="a">מוהליבר 15</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">גבורת יצחק</span><span class="a">עוזי נרקיס 4</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">דרכי נועם</span><span class="a">לנדאו 12</span></div>
+      <div class="g-row"><span class="t num">00:00</span><span class="n">זכור לאברהם</span><span class="a">ורבורג 7</span></div>
+    </div>
+
+    <div class="slot-head">
+      <span class="k">לפנות בוקר</span>
+      <span class="n num">04:30 – 05:15 · 32 מניינים</span>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+      <div class="g-row"><span class="t num">04:30</span><span class="n">בית אל</span><span class="a">כיכר ויצמן 4</span></div>
+      <div class="g-row"><span class="t num">04:30</span><span class="n">דברי שלום ואמת</span><span class="a">השומר 19</span></div>
+      <div class="g-row"><span class="t num">04:30</span><span class="n">עולי משהד</span><span class="a">דב הוז 31</span></div>
+      <div class="g-row"><span class="t num">04:40</span><span class="n">הליכות עולם</span><span class="a">דבורה הנביאה 5</span></div>
+      <div class="g-row"><span class="t num">04:40</span><span class="n">חסד ואמת</span><span class="a">רחבעם זאבי 24</span></div>
+      <div class="g-row"><span class="t num">04:40</span><span class="n">קדושי צה״ל</span><span class="a">הפלמ״ח 4</span></div>
+      <div class="g-row"><span class="t num">05:00</span><span class="n">אור החיים</span><span class="a">הרוזמרין 3</span></div>
+      <div class="g-row"><span class="t num">05:00</span><span class="n">ארם נהריים</span><span class="a">ברנר 10</span></div>
+      <div class="g-row"><span class="t num">05:00</span><span class="n">חב״ד</span><span class="a">פנחס אילון 13</span></div>
+      <div class="g-row"><span class="t num">05:15</span><span class="n">גאולת ישראל</span><span class="a">אלופי צה״ל 10</span></div>
+      <div class="g-row"><span class="t num">05:15</span><span class="n">כפוסי</span><span class="a">שמריהו לוין 7</span></div>
+      <div class="g-row"><span class="t num">05:15</span><span class="n">מישרים</span><span class="a">שמעיה 8</span></div>
+    </div>
+
+    <div class="slot-head">
+      <span class="k">אחר הצהריים</span>
+      <span class="n num">16:40 – 17:40 · 11 מניינים</span>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+      <div class="g-row"><span class="t num">16:40</span><span class="n">נחלת שלום</span><span class="a">יהודה הלוי 31</span></div>
+      <div class="g-row"><span class="t num">16:40</span><span class="n">עטרת אליהו</span><span class="a">יבנה 8</span></div>
+      <div class="g-row"><span class="t num">17:00</span><span class="n">כולל עושה שלום</span><span class="a">סנהדרין 27</span></div>
+      <div class="g-row"><span class="t num">17:30</span><span class="n">ותתפלל חנה</span><span class="a">שלמה מולכו 7</span></div>
+      <div class="g-row"><span class="t num">17:40</span><span class="n">אהבת ישראל</span><span class="a">אילת 18</span></div>
+      <div class="g-row"><span class="t num">17:40</span><span class="n">היכל משה</span><span class="a">שער ציון 25</span></div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+    <span>
+      <b>ארבעה בתי כנסת חדשים בבת ים ללא כתובת</b> — אהבת מישרים, מאור אל, הראל־בוכרים, חיים שאל.
+      להודעת ימי החול אין כתובות. הם יופיעו ברשימות עם הזמנים, אבל לא על המפה, עד שתספק כתובת.
+    </span>
+  </div>
+
+  <footer class="wrap" style="padding-inline:0">
+    סקיצה · מניין 148 · IBM Plex Sans Hebrew · אקסנט יחיד #2563EB
+  </footer>
+</main>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    document.getElementById('theme').addEventListener('click', function () {
+      var explicit = root.getAttribute('data-theme');
+      var dark = explicit
+        ? explicit === 'dark'
+        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    });
+
+    document.querySelectorAll('.seg button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.seg button').forEach(function (o) {
+          o.setAttribute('aria-selected', 'false');
+        });
+        b.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    document.querySelectorAll('.chip').forEach(function (c) {
+      c.addEventListener('click', function () {
+        c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      });
+    });
+
+    document.querySelectorAll('.row').forEach(function (r) {
+      r.addEventListener('click', function () {
+        document.querySelectorAll('.row').forEach(function (o) { o.classList.remove('sel'); });
+        r.classList.add('sel');
+      });
+    });
+
+    // moving the shared anchor moves the marker and its popup together
+    var anchor = document.querySelector('.sel-anchor');
+    var selPin = anchor.querySelector('.pin');
+    var hidden = null;
+    document.querySelectorAll('.pane-map > .pin').forEach(function (p) {
+      p.addEventListener('click', function () {
+        if (hidden) hidden.style.visibility = '';
+        hidden = p;
+        p.style.visibility = 'hidden';
+        anchor.style.left = p.style.left;
+        anchor.style.top = p.style.top;
+        selPin.style.background = p.style.background;
+      });
+    });
+  })();
+</script>

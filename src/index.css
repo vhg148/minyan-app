@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import './styles/tokens.css';
 
+/* התיעוד מצטט שמות מחלקות ("min-[960px]:hidden", "text-faint"), ו-Tailwind
+   סורק אותו ומייצר מהם utilities אמיתיים שנכנסים לבאנדל. תיעוד לא אמור
+   להשפיע על מה שנשלח למשתמש. */
+@source not "../SYSTEM-DOCS.md";
+@source not "../README.md";
+@source not "../docs";
+
 /* ── בסיס ─────────────────────────────────────────────────── */
 
 body {
