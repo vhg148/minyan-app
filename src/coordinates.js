@@ -15,7 +15,6 @@ const addressCoordinates = {
   'החרצית 5': [32.0070, 34.7810],
   'אלופי צהל 41': [32.0050, 34.7690],
   'אלופי צה"ל 41': [32.0050, 34.7690],
-  'אלופי צהל 41': [32.0050, 34.7690],
   'ורבורג 7': [32.0145, 34.7755],
   'הופיין 17': [32.0120, 34.7810],
   'הצרעה 3': [32.0060, 34.7750],
@@ -135,6 +134,26 @@ const addressCoordinates = {
   'ריינס 10': [32.0165, 34.7775],
   'הסתת 6': [32.0012, 34.7675],
   'מרכז סדאב': [32.0100, 34.7700],
+  // ── כתובות מנייני הסליחות (אלול תשפ"ו) ──
+  // גאוקוד מ-OpenStreetMap / Nominatim:
+  'מוהליבר 15': [32.0198, 34.7859],
+  'כיכר ויצמן 4': [32.0223, 34.7748],
+  'כיכר ויצמן': [32.0223, 34.7748],
+  'רחבעם זאבי 24': [32.0291, 34.7696],
+  'יעבץ 9': [32.0207, 34.7910],
+  'דגניה 21': [32.0139, 34.7774],
+  'הרוזמרין 3': [32.0095, 34.7835],
+  'ביה"ס אריאל שרון': [32.0068, 34.7773],
+  // וריאציות כתיב של רשומות שכבר קיימות למעלה — אותן קואורדינטות בדיוק:
+  'אהרונוביץ 91': [32.0092, 34.7693],
+  'משעול הפז 15': [32.0066, 34.7833],
+  'קדושי קהיר 14': [32.0110, 34.7850],
+  'העלייה השנייה 37': [32.0185, 34.7720],
+  // הערכה לפי מספר בית סמוך ברחוב שכבר ממופה:
+  'סנהדרין 27': [32.0131, 34.7719],
+  'חזית חמש 25': [32.0108, 34.7736],
+  'דב הוז 31': [32.0133, 34.7692],
+  'הרב ניסנבאום 9': [32.0114, 34.7759],
   // בת ים
   'הרצל 55 בת ים': [32.0230, 34.7500],
   'בת ים': [32.0231, 34.7503],
@@ -173,24 +192,41 @@ const addressCoordinates = {
   'העצמאות בת ים': [32.0268, 34.7528],
 };
 
-export function getCoordinates(address, city) {
-  // ניסיון למצוא התאמה מדויקת
-  if (addressCoordinates[address]) {
-    return addressCoordinates[address];
-  }
+// מחזירה קואורדינטות מדויקות אם הכתובת ממופה, אחרת null.
+// כתובת ריקה מחזירה null — בלעדי הבדיקה הזו התאמה חלקית הייתה מחזירה את
+// הרשומה הראשונה בטבלה, כי key.includes('') תמיד אמת.
+export function findCoordinates(address) {
+  const normalized = (address || '').trim();
+  if (!normalized) return null;
 
-  // ניסיון למצוא התאמה חלקית
-  const normalizedAddress = address.trim();
+  if (addressCoordinates[normalized]) return addressCoordinates[normalized];
+
   for (const [key, coords] of Object.entries(addressCoordinates)) {
-    if (normalizedAddress.includes(key) || key.includes(normalizedAddress)) {
-      return coords;
-    }
+    if (normalized.includes(key) || key.includes(normalized)) return coords;
   }
+  return null;
+}
 
-  // פיזור אקראי סביב מרכז העיר המתאימה
+// האם לכתובת יש מיקום אמיתי — קובע אם המניין מוצג על המפה
+export function hasCoordinates(address) {
+  return findCoordinates(address) !== null;
+}
+
+// מיקום לתצוגה: אמיתי אם ידוע, אחרת מרכז העיר עם פיזור דטרמיניסטי לפי
+// הכתובת, כדי שסימונים לא ייערמו זה על זה — וכדי שלא יקפצו בכל רינדור.
+export function getCoordinates(address, city) {
+  const exact = findCoordinates(address);
+  if (exact) return exact;
+
   const center = city === 'בת ים' ? BAT_YAM_CENTER : HOLON_CENTER;
-  const offset = () => (Math.random() - 0.5) * 0.008;
-  return [center[0] + offset(), center[1] + offset()];
+  const seed = `${address || ''}|${city || ''}`;
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  const jitter = (n) => (((h >>> n) % 1000) / 1000 - 0.5) * 0.008;
+  return [center[0] + jitter(0), center[1] + jitter(10)];
 }
 
 export { HOLON_CENTER, BAT_YAM_CENTER };
