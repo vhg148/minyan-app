@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Clock, Info, Search } from 'lucide-react';
 
 import prayerFile from './data/prayers.json';
@@ -21,17 +21,14 @@ import Header from './components/Header';
 import ZmanimBar from './components/ZmanimBar';
 import { Chips, SearchRow, Tabs } from './components/Toolbar';
 import NowCard from './components/NowCard';
-import PrayerRow from './components/PrayerRow';
-import PrayerCard from './components/PrayerCard';
+import SplitView from './components/SplitView';
 import SelichotView from './components/SelichotView';
 
-const PrayerMap = lazy(() => import('./PrayerMap'));
 
 const SELICHOT = normalizeSelichot(selichotFile.minyanim);
 const CLOCK_TICK_MS = 30000;
-// כמה סימונים מגיעים למפה. הרשימה מציגה הכל; Leaflet לא אוהב מאות סימונים,
-// והמספר מוצג למשתמש כדי שהחיתוך לא ייראה כמו כיסוי מלא.
-const MAP_MARKER_LIMIT = 40;
+
+const TAB_TITLE = { shacharit: 'שחרית', mincha: 'מנחה', arvit: 'ערבית' };
 
 export default function App() {
   const { isDark, toggle } = useTheme();
@@ -124,14 +121,6 @@ export default function App() {
     highlight?.walkMinutes !== undefined &&
     highlight.walkMinutes <= highlight.minutesAway;
 
-  // הבחירה נגזרת ולא מסונכרנת דרך אפקט: כשהמניין הנבחר יוצא מהרשימה —
-  // סינון, חיפוש או פשוט מעבר הזמן — היא נופלת חזרה לראשון מעצמה.
-  const selectedPrayer = useMemo(
-    () => searchedUpcoming.find((p) => p.id === selectedId) ?? searchedUpcoming[0] ?? null,
-    [searchedUpcoming, selectedId],
-  );
-  const selectPrayer = useCallback((prayer) => setSelectedId(prayer.id), []);
-
   const categoryList = useMemo(() => {
     if (activeTab === 'upcoming' || activeTab === 'selichot') return [];
     return prayerFile.prayers
@@ -141,6 +130,18 @@ export default function App() {
       .filter((p) => matchesCity(p, cityFilter) && matchesSearch(p, query))
       .sort((a, b) => (a.minutesAway ?? 1e9) - (b.minutesAway ?? 1e9));
   }, [activeTab, zmanim, currentTime, userLocation, cityFilter, query]);
+
+  // הרשימה שמוצגת כרגע — היא שמזינה גם את השורות וגם את המפה
+  const visibleList = activeTab === 'upcoming' ? searchedUpcoming : categoryList;
+
+  // הבחירה נגזרת ולא מסונכרנת דרך אפקט: כשהמניין הנבחר יוצא מהרשימה —
+  // סינון, חיפוש, מעבר טאב או פשוט מעבר הזמן — היא נופלת חזרה לראשון מעצמה.
+  const selectedPrayer = useMemo(
+    () => visibleList.find((p) => p.id === selectedId) ?? visibleList[0] ?? null,
+    [visibleList, selectedId],
+  );
+  const selectPrayer = useCallback((prayer) => setSelectedId(prayer.id), []);
+
 
   const selichotList = useMemo(() => {
     if (!inSeason) return [];
@@ -199,74 +200,23 @@ export default function App() {
         />
         )}
 
-        {activeTab === 'upcoming' && (
+        {activeTab !== 'selichot' && (
           <>
-            <NowCard prayer={highlight} reachable={highlightReachable} />
-
-            <div className="flex h-auto flex-col overflow-hidden rounded-[12px] border border-line bg-surface min-[960px]:h-[min(560px,70vh)] min-[960px]:flex-row">
-              <div className="order-2 shrink-0 overflow-y-auto px-[14px] pb-2 min-[960px]:order-1 min-[960px]:basis-[38%] min-[960px]:border-e min-[960px]:border-line min-[960px]:px-3">
-                <div className="sticky top-0 z-5 flex items-baseline justify-between gap-3 border-b border-line bg-surface pt-3 pb-[9px]">
-                  <h2 className="m-0 text-[12px] font-semibold tracking-[0.08em] text-muted">
-                    התפילות הבאות
-                  </h2>
-                  <span className="text-[12px] text-faint">
-                    {searchedUpcoming.length} מניינים
-                    {searchedUpcoming.length > MAP_MARKER_LIMIT &&
-                      ` · ${MAP_MARKER_LIMIT} הראשונים על המפה`}
-                  </span>
-                </div>
-
-                {searchedUpcoming.length ? (
-                  searchedUpcoming.map((prayer) => (
-                    <PrayerRow
-                      key={prayer.id}
-                      prayer={prayer}
-                      selected={selectedPrayer?.id === prayer.id}
-                      onSelect={selectPrayer}
-                    />
-                  ))
-                ) : (
-                  <EmptyState query={query} onClear={() => setQuery('')} />
-                )}
-              </div>
-
-              <div className="relative order-1 h-[280px] shrink-0 border-b border-line bg-surface-2 min-[960px]:order-2 min-[960px]:h-auto min-[960px]:flex-1 min-[960px]:border-b-0">
-                <Suspense
-                  fallback={
-                    <div className="flex size-full items-center justify-center text-[13px] text-muted">
-                      טוען מפה…
-                    </div>
-                  }
-                >
-                  <PrayerMap
-                    prayers={searchedUpcoming.slice(0, MAP_MARKER_LIMIT)}
-                    selectedPrayer={selectedPrayer}
-                    onSelectPrayer={selectPrayer}
-                    userLocation={userLocation}
-                  />
-                </Suspense>
-              </div>
-            </div>
-
-            <FreshnessNote prayers={upcoming} sources={prayerFile.sources} />
-          </>
-        )}
-
-        {(activeTab === 'shacharit' || activeTab === 'mincha' || activeTab === 'arvit') && (
-          <>
-            <div className="flex items-center gap-[6px] text-[12.5px] text-muted">
-              <Info className="size-[14px] text-faint" />
-              מציג {categoryList.length} מניינים
-            </div>
-            {categoryList.length ? (
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {categoryList.map((prayer) => (
-                  <PrayerCard key={prayer.id} prayer={prayer} />
-                ))}
-              </div>
-            ) : (
-              <EmptyState query={query} onClear={() => setQuery('')} />
+            {activeTab === 'upcoming' && (
+              <NowCard prayer={highlight} reachable={highlightReachable} />
             )}
+
+            <SplitView
+              title={activeTab === 'upcoming' ? 'התפילות הבאות' : TAB_TITLE[activeTab]}
+              prayers={visibleList}
+              selectedPrayer={selectedPrayer}
+              onSelect={selectPrayer}
+              userLocation={userLocation}
+              fitKey={activeTab}
+              empty={<EmptyState query={query} onClear={() => setQuery('')} />}
+            />
+
+            <FreshnessNote prayers={visibleList} sources={prayerFile.sources} />
           </>
         )}
 

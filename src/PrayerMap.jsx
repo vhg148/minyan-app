@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { getCoordinates, HOLON_CENTER } from './coordinates';
@@ -32,51 +32,61 @@ const userIcon = L.divIcon({
   iconAnchor: [7, 7],
 });
 
-/** מסגור ראשוני לכל הסימונים — פעם אחת, לא בכל שינוי ברשימה */
-function FitAllMarkers({ points }) {
+/**
+ * שולט בשני הדברים שמזיזים את המפה, יחד — כי הם יכולים להילחם זה בזה.
+ *
+ * מסגור: הרשימה מתחלפת כשעוברים טאב, והמפה נשארת מותקנת. בלי מסגור מחדש
+ * התצוגה הייתה נתקעת על הטאב הקודם והסימונים החדשים יוצאים מהמסך.
+ *
+ * מעוף: רק לבחירה שהמשתמש עשה. הבחירה שנוצרת מאליה — בטעינה או אחרי
+ * מעבר טאב — לא גוררת מעוף, אחרת כל החלפת טאב הייתה מזנקת לזום 16 על
+ * מניין אחד מיד אחרי שמסגרנו את כולם.
+ */
+function ViewController({ points, fitKey, selectedPrayer, markerRefs }) {
   const map = useMap();
-  const fitted = useRef(false);
-
-  useEffect(() => {
-    if (fitted.current || points.length === 0) return;
-    map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15 });
-    fitted.current = true;
-  }, [points, map]);
-
-  return null;
-}
-
-/** מעוף אל המניין הנבחר ופתיחת ה-popup שלו */
-function FlyToSelected({ selectedPrayer, markerRefs }) {
-  const map = useMap();
+  const fittedKey = useRef(null);
   const prevId = useRef(null);
-  const firstRun = useRef(true);
+  const [size, setSize] = useState(null);
+
+  // Leaflet מודד את המכולה פעם אחת. כאן היא נולדת לפעמים ברוחב 0 (המפה
+  // נטענת ב-Suspense לפני שהפריסה התייצבה), ו-fitBounds מול גודל 0 מחזיר
+  // זום אינסופי שנחתך ל-maxZoom — ואז חצי מהסימונים מחוץ למסך.
+  useEffect(() => {
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      map.invalidateSize({ animate: false });
+      setSize(width > 0 && height > 0 ? `${Math.round(width)}x${Math.round(height)}` : null);
+    });
+    observer.observe(map.getContainer());
+    return () => observer.disconnect();
+  }, [map]);
+
+  // המסגור מחכה למידות אמיתיות. כל עוד אין — fittedKey לא נקבע, ולכן
+  // ברגע שהמידות מגיעות האפקט רץ שוב וממסגר סוף־סוף.
+  useEffect(() => {
+    if (!size || points.length === 0 || fittedKey.current === fitKey) return;
+    fittedKey.current = fitKey;
+    prevId.current = selectedPrayer?.id ?? null;
+    map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15 });
+  }, [points, fitKey, size, selectedPrayer, map]);
 
   useEffect(() => {
     if (!selectedPrayer || selectedPrayer.id === prevId.current) return;
     prevId.current = selectedPrayer.id;
 
-    // בטעינה כבר יש מניין נבחר (הראשון ברשימה) — לא עפים אליו ולא פותחים
-    // עליו popup שיחסום חצי מפה לפני שהמשתמש ביקש משהו.
-    if (firstRun.current) {
-      firstRun.current = false;
-      return;
-    }
-
     const marker = markerRefs.current.get(selectedPrayer.id);
     if (!marker) return;
 
-    // פותחים קודם ואז עפים: הפופאפ נשאר מחובר לסימון לאורך התנועה, ו-keepInView
-    // דואג שיישאר בתוך המפה בסופה. תלייה ב-moveend לא אמינה — הוא לא נורה
-    // כשהמפה כבר נמצאת ביעד.
+    // פותחים קודם ואז עפים: הפופאפ נשאר מחובר לסימון לאורך התנועה,
+    // ו-keepInView דואג שיישאר בתוך המפה בסופה.
     marker.openPopup();
     map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.7 });
-  }, [selectedPrayer, map, markerRefs]);
+  }, [selectedPrayer, markerRefs, map]);
 
   return null;
 }
 
-export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, userLocation }) {
+export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, userLocation, fitKey }) {
   const markerRefs = useRef(new Map());
 
   // רק מניינים עם כתובת ממופה מגיעים למפה
@@ -95,8 +105,12 @@ export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, use
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <FitAllMarkers points={points} />
-      <FlyToSelected selectedPrayer={selectedPrayer} markerRefs={markerRefs} />
+      <ViewController
+        points={points}
+        fitKey={fitKey}
+        selectedPrayer={selectedPrayer}
+        markerRefs={markerRefs}
+      />
 
       {userLocation && (
         <Marker position={userLocation} icon={userIcon} zIndexOffset={2000}>

@@ -10,7 +10,7 @@ export default function Header({ currentTime, isDark, onToggleTheme }) {
     <div className="mx-auto flex max-w-[1080px] items-center justify-between gap-4 px-4 py-[10px]">
       <div className="flex min-w-0 flex-col gap-[3px]">
         <div className="flex items-baseline gap-2">
-          <span className="text-[17px] font-bold tracking-tight">מניין 148</span>
+          <h1 className="m-0 text-[17px] font-bold tracking-tight">מניין 148</h1>
           <span className="text-xs text-muted">חולון · בת ים</span>
         </div>
         {/* הקדשה — נקראת במלואה, בלי חיתוך ובלי קישוט */}
