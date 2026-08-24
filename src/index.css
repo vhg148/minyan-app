@@ -1,33 +1,118 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import './styles/tokens.css';
+
+/* ── בסיס ─────────────────────────────────────────────────── */
 
 body {
   margin: 0;
+  direction: rtl;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans Hebrew', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Leaflet custom marker styles */
-.prayer-marker {
+/* ספרות בעמודה מיושרת — שעות הן העמוד השדרה של הממשק הזה */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Leaflet ──────────────────────────────────────────────── */
+
+.leaflet-container {
+  background: var(--surface-2);
+  font-family: inherit;
+}
+
+/* האריחים מסוננים; הסימונים והפופאפ שמעליהם לא */
+.leaflet-tile-pane {
+  filter: var(--tile-filter);
+}
+
+.prayer-marker,
+.user-location-marker {
   background: transparent !important;
   border: none !important;
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 14px !important;
   padding: 0 !important;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+  overflow: hidden;
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control) !important;
+  box-shadow: var(--shadow-pop) !important;
 }
 
 .leaflet-popup-content {
-  margin: 18px 20px !important;
+  margin: 0 !important;
+  width: 232px !important;
+  line-height: 1.5;
 }
 
 .leaflet-popup-tip {
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  background: var(--surface) !important;
+  border-inline-start: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  box-shadow: none !important;
+}
+
+.leaflet-popup-close-button {
+  color: var(--faint) !important;
+  inset-inline-end: 4px !important;
+  inset-inline-start: auto !important;
 }
 
 .leaflet-tooltip {
   direction: rtl;
-  border-radius: 8px !important;
-  padding: 4px 10px !important;
-  font-family: system-ui, sans-serif !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  padding: 3px 9px !important;
+  font-family: inherit !important;
+  font-size: 12.5px !important;
+  font-weight: 500;
+  background: var(--surface) !important;
+  color: var(--ink-2) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  box-shadow: var(--shadow) !important;
+}
+.leaflet-tooltip::before {
+  border-top-color: var(--line) !important;
+}
+
+.leaflet-control-attribution {
+  background: color-mix(in srgb, var(--surface) 85%, transparent) !important;
+  color: var(--faint) !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: var(--muted) !important;
 }

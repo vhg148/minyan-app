@@ -1,10 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>minyan-app</title>
+    <meta name="description" content="זמני תפילות ומנייני סליחות בחולון ובת ים — לפי המניין הקרוב אליך עכשיו." />
+    <title>מניין 148 — זמני תפילות בחולון ובת ים</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap"
+    />
+
+    <script>
+      // החלת ערכת הנושא לפני הצביעה הראשונה, אחרת יש הבזק לבן בכל טעינה —
+      // וזו אפליקציה שנפתחת ב-4:30 בבוקר.
+      (function () {
+        try {
+          var saved = localStorage.getItem('minyan148:theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {
+          /* localStorage חסום — נופלים להעדפת המערכת */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

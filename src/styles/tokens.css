@@ -1,0 +1,156 @@
+/* ─────────────────────────────────────────────────────────────
+   מערכת טוקנים — מונוכרום בהטיה קרירה, אקסנט יחיד.
+   שלושה מצבים: בחירה מפורשת (data-theme), והעדפת מערכת כברירת מחדל.
+   כל צבע במערכת נגזר מכאן; אין ערכי צבע ישירים בקומפוננטות.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --paper: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F4F4F5;
+  --surface-3: #EFEFF1;
+  --line: #E4E4E7;
+  --line-strong: #D4D4D8;
+  --ink: #09090B;
+  --ink-2: #3F3F46;
+  --muted: #62626B;
+  --faint: #6E6E7B;
+
+  --accent: #2563EB;
+  --accent-ink: #1D4ED8;
+  --accent-soft: #EFF6FF;
+  --accent-line: #BFDBFE;
+
+  --live: #047857;
+  --live-soft: #ECFDF5;
+  --live-line: #A7F3D0;
+
+  --warn: #B45309;
+  --warn-soft: #FFFBEB;
+  --warn-line: #FDE68A;
+
+  --c-shacharit: #0EA5E9;
+  --c-mincha: #F59E0B;
+  --c-arvit: #6366F1;
+  --c-selichot: #A855F7;
+
+  --shadow: 0 1px 2px rgb(9 9 11 / 0.04);
+  --shadow-pop: 0 6px 20px rgb(9 9 11 / 0.13);
+
+  /* אריחי המפה מסוננים כדי לא להילחם בממשק — הסימונים הם היחידים עם צבע */
+  --tile-filter: saturate(0.18) contrast(0.96) brightness(1.02);
+
+  color-scheme: light;
+}
+
+/* מצב מערכת כהה — נסוג מפני בחירה מפורשת בבהיר */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0A0A0C;
+    --surface: #141417;
+    --surface-2: #1B1B1F;
+    --surface-3: #232328;
+    --line: #27272A;
+    --line-strong: #3F3F46;
+    --ink: #FAFAFA;
+    --ink-2: #D4D4D8;
+    --muted: #9A9AA3;
+    --faint: #7E7E88;
+
+    --accent: #4D8DFF;
+    --accent-ink: #8AB4FF;
+    --accent-soft: #12213D;
+    --accent-line: #1E3A6B;
+
+    --live: #34D399;
+    --live-soft: #0B241C;
+    --live-line: #14532D;
+
+    --warn: #FBBF24;
+    --warn-soft: #241B08;
+    --warn-line: #4A3308;
+
+    --c-shacharit: #38BDF8;
+    --c-mincha: #FBBF24;
+    --c-arvit: #818CF8;
+    --c-selichot: #C084FC;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-pop: 0 6px 24px rgb(0 0 0 / 0.55);
+
+    --tile-filter: invert(1) hue-rotate(180deg) saturate(0.14) brightness(0.88) contrast(1.05);
+
+    color-scheme: dark;
+  }
+}
+
+/* בחירה מפורשת בכהה — גוברת גם על מערכת בהירה */
+:root[data-theme='dark'] {
+  --paper: #0A0A0C;
+  --surface: #141417;
+  --surface-2: #1B1B1F;
+  --surface-3: #232328;
+  --line: #27272A;
+  --line-strong: #3F3F46;
+  --ink: #FAFAFA;
+  --ink-2: #D4D4D8;
+  --muted: #9A9AA3;
+  --faint: #7E7E88;
+
+  --accent: #4D8DFF;
+  --accent-ink: #8AB4FF;
+  --accent-soft: #12213D;
+  --accent-line: #1E3A6B;
+
+  --live: #34D399;
+  --live-soft: #0B241C;
+  --live-line: #14532D;
+
+  --warn: #FBBF24;
+  --warn-soft: #241B08;
+  --warn-line: #4A3308;
+
+  --c-shacharit: #38BDF8;
+  --c-mincha: #FBBF24;
+  --c-arvit: #818CF8;
+  --c-selichot: #C084FC;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-pop: 0 6px 24px rgb(0 0 0 / 0.55);
+
+  --tile-filter: invert(1) hue-rotate(180deg) saturate(0.14) brightness(0.88) contrast(1.05);
+
+  color-scheme: dark;
+}
+
+/* חשיפת הטוקנים כ-utilities של Tailwind: bg-surface, text-muted, border-line ... */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  --color-live: var(--live);
+  --color-live-soft: var(--live-soft);
+  --color-live-line: var(--live-line);
+
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-line: var(--warn-line);
+
+  --font-sans: 'IBM Plex Sans Hebrew', ui-sans-serif, system-ui, 'Segoe UI', Arial, sans-serif;
+
+  --radius-card: 12px;
+  --radius-control: 8px;
+}

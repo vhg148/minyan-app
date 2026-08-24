@@ -1,286 +1,188 @@
-import React, { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
+import { useEffect, useRef } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Navigation, Map as MapIcon, MapPin } from 'lucide-react';
 import { getCoordinates, HOLON_CENTER } from './coordinates';
+import { CATEGORIES, categoryLabel, cityOf } from './lib/prayers';
+import { countdownLabel } from './lib/format';
 import 'leaflet/dist/leaflet.css';
 
-// צבעים לפי סוג תפילה
-const CATEGORY_COLORS = {
-  shacharit: { bg: '#0ea5e9', border: '#0284c7', label: 'שחרית', text: 'white' },
-  mincha: { bg: '#f97316', border: '#ea580c', label: 'מנחה', text: 'white' },
-  arvit: { bg: '#7c3aed', border: '#6d28d9', label: 'ערבית', text: 'white' },
-  mincha_arvit: { bg: '#eab308', border: '#ca8a04', label: 'מנחה+ערבית', text: '#1a1a1a' },
-};
-
-// יצירת אייקון מותאם אישית לכל marker
-function createPrayerIcon(prayer) {
-  const cat = prayer.subCategory === 'mincha_arvit'
-    ? CATEGORY_COLORS.mincha_arvit
-    : CATEGORY_COLORS[prayer.category] || CATEGORY_COLORS.shacharit;
-
-  const label = prayer.subCategory === 'mincha_arvit' ? 'מנ+ער' :
-    prayer.category === 'shacharit' ? 'שחרית' :
-    prayer.category === 'mincha' ? 'מנחה' : 'ערבית';
-
-  const html = `
-    <div style="
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    ">
-      <div style="
-        background: ${cat.bg};
-        border: 2px solid ${cat.border};
-        border-radius: 12px;
-        padding: 3px 8px;
-        color: ${cat.text};
-        font-weight: 900;
-        font-size: 14px;
-        font-family: system-ui, sans-serif;
-        text-align: center;
-        line-height: 1.2;
-        white-space: nowrap;
-        min-width: 48px;
-      ">
-        <div style="font-size: 15px; letter-spacing: 0.5px;">${prayer.actualTime}</div>
-        <div style="font-size: 9px; font-weight: 600; opacity: 0.9;">${label}</div>
-      </div>
-      <div style="
-        width: 0;
-        height: 0;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        border-top: 8px solid ${cat.bg};
-        margin-top: -1px;
-      "></div>
-    </div>
-  `;
+// הסימונים הם הדבר היחיד על המפה שנושא צבע — האריחים מסוננים ב-index.css.
+// הצבע נלקח מהטוקנים ולא מקודד כאן, כדי שגם הוא יתחלף במצב כהה.
+function prayerIcon(prayer, selected) {
+  const color = (CATEGORIES[prayer.category] || CATEGORIES.shacharit).color;
+  const size = selected ? 20 : 13;
+  const border = selected ? 3 : 2;
+  const ring = selected ? 'box-shadow:0 0 0 1px rgb(0 0 0/.2),0 0 0 7px color-mix(in srgb,var(--ink) 12%,transparent);' : 'box-shadow:0 0 0 1px rgb(0 0 0/.16);';
 
   return L.divIcon({
-    html,
     className: 'prayer-marker',
-    iconSize: [70, 52],
-    iconAnchor: [35, 52],
-    popupAnchor: [0, -48],
-    tooltipAnchor: [0, -48],
+    html: `<span style="display:block;width:${size}px;height:${size}px;border-radius:50%;background:${color};border:${border}px solid var(--surface);${ring}"></span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -(size / 2) - 6],
+    tooltipAnchor: [0, -(size / 2) - 4],
   });
 }
 
-// התאמת המפה להציג את כל הסימונים בטעינה הראשונה
-function FitAllMarkers({ prayers }) {
+const userIcon = L.divIcon({
+  className: 'user-location-marker',
+  html: `<span style="display:block;width:14px;height:14px;border-radius:50%;background:var(--accent);border:2.5px solid var(--surface);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent),0 0 0 16px color-mix(in srgb,var(--accent) 10%,transparent);"></span>`,
+  iconSize: [14, 14],
+  iconAnchor: [7, 7],
+});
+
+/** מסגור ראשוני לכל הסימונים — פעם אחת, לא בכל שינוי ברשימה */
+function FitAllMarkers({ points }) {
   const map = useMap();
   const fitted = useRef(false);
 
   useEffect(() => {
-    if (!fitted.current && prayers.length > 0) {
-      const bounds = L.latLngBounds(prayers.map(p => getCoordinates(p.address, p.city)));
-      map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
-      fitted.current = true;
-    }
-  }, [prayers, map]);
+    if (fitted.current || points.length === 0) return;
+    map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15 });
+    fitted.current = true;
+  }, [points, map]);
 
   return null;
 }
 
-// קומפוננטה שמזיזה את המפה כשבוחרים מניין ופותחת popup
-function FlyToSelected({ selectedPrayer }) {
+/** מעוף אל המניין הנבחר ופתיחת ה-popup שלו */
+function FlyToSelected({ selectedPrayer, markerRefs }) {
   const map = useMap();
   const prevId = useRef(null);
-  const isFirstRender = useRef(true);
+  const firstRun = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      prevId.current = selectedPrayer?.id;
+    if (!selectedPrayer || selectedPrayer.id === prevId.current) return;
+    prevId.current = selectedPrayer.id;
+
+    // בטעינה כבר יש מניין נבחר (הראשון ברשימה) — לא עפים אליו ולא פותחים
+    // עליו popup שיחסום חצי מפה לפני שהמשתמש ביקש משהו.
+    if (firstRun.current) {
+      firstRun.current = false;
       return;
     }
-    if (selectedPrayer && selectedPrayer.id !== prevId.current) {
-      const coords = getCoordinates(selectedPrayer.address, selectedPrayer.city);
-      // הזזת המרכז מעט למטה כדי שה-popup ייראה מעל הסמן
-      const offsetCoords = [coords[0] + 0.001, coords[1]];
-      map.flyTo(offsetCoords, 17, { duration: 0.8 });
-      // פתיחת popup אחרי שההעפה מסתיימת
-      map.once('moveend', () => {
-        map.eachLayer((layer) => {
-          if (layer instanceof L.Marker && layer.getPopup()) {
-            const pos = layer.getLatLng();
-            if (Math.abs(pos.lat - coords[0]) < 0.0001 && Math.abs(pos.lng - coords[1]) < 0.0001) {
-              layer.openPopup();
-            }
-          }
-        });
-      });
-      prevId.current = selectedPrayer.id;
-    }
-  }, [selectedPrayer, map]);
+
+    const marker = markerRefs.current.get(selectedPrayer.id);
+    if (!marker) return;
+
+    // פותחים קודם ואז עפים: הפופאפ נשאר מחובר לסימון לאורך התנועה, ו-keepInView
+    // דואג שיישאר בתוך המפה בסופה. תלייה ב-moveend לא אמינה — הוא לא נורה
+    // כשהמפה כבר נמצאת ביעד.
+    marker.openPopup();
+    map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 16), { duration: 0.7 });
+  }, [selectedPrayer, map, markerRefs]);
 
   return null;
 }
 
-// אייקון "אתה כאן"
-const userLocationIcon = L.divIcon({
-  html: `
-    <div style="
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      filter: drop-shadow(0 2px 6px rgba(59,130,246,0.5));
-    ">
-      <div style="
-        width: 18px;
-        height: 18px;
-        background: #3b82f6;
-        border: 3px solid white;
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
-      "></div>
-    </div>
-  `,
-  className: 'user-location-marker',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
-});
-
 export default function PrayerMap({ prayers, selectedPrayer, onSelectPrayer, userLocation }) {
+  const markerRefs = useRef(new Map());
+
+  // רק מניינים עם כתובת ממופה מגיעים למפה
+  const mapped = prayers.filter((p) => p.onMap);
+  const points = mapped.map((p) => getCoordinates(p.address, p.city));
+
   return (
     <MapContainer
       center={userLocation || HOLON_CENTER}
       zoom={userLocation ? 15 : 14}
-      style={{ width: '100%', height: '100%' }}
       zoomControl={false}
+      style={{ width: '100%', height: '100%' }}
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <FitAllMarkers prayers={prayers} />
-      <FlyToSelected selectedPrayer={selectedPrayer} />
 
-      {/* סימון מיקום המשתמש + עיגול רדיוס */}
+      <FitAllMarkers points={points} />
+      <FlyToSelected selectedPrayer={selectedPrayer} markerRefs={markerRefs} />
+
       {userLocation && (
-        <>
-          <Marker position={userLocation} icon={userLocationIcon} zIndexOffset={2000}>
-            <Tooltip direction="top" permanent={false}>
-              <div style={{ direction: 'rtl', fontWeight: 700, fontSize: '13px' }}>📍 אתה כאן</div>
-            </Tooltip>
-          </Marker>
-        </>
+        <Marker position={userLocation} icon={userIcon} zIndexOffset={2000}>
+          <Tooltip direction="top">אתה כאן</Tooltip>
+        </Marker>
       )}
 
-      {prayers.map((prayer) => {
-        const coords = getCoordinates(prayer.address, prayer.city);
-        const isSelected = selectedPrayer?.id === prayer.id;
-
+      {mapped.map((prayer) => {
+        const selected = selectedPrayer?.id === prayer.id;
         return (
           <Marker
-            key={`marker-${prayer.id}`}
-            position={coords}
-            icon={createPrayerIcon(prayer)}
-            zIndexOffset={isSelected ? 1000 : 0}
-            eventHandlers={{
-              click: () => onSelectPrayer(prayer),
+            key={prayer.id}
+            position={getCoordinates(prayer.address, prayer.city)}
+            icon={prayerIcon(prayer, selected)}
+            zIndexOffset={selected ? 1000 : 0}
+            ref={(instance) => {
+              if (instance) markerRefs.current.set(prayer.id, instance);
+              else markerRefs.current.delete(prayer.id);
             }}
+            eventHandlers={{ click: () => onSelectPrayer(prayer) }}
           >
-            <Popup className="prayer-popup" maxWidth={300} minWidth={240}>
-              <div style={{ direction: 'rtl', fontFamily: 'system-ui, sans-serif' }}>
-                <div style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                  marginBottom: '12px', gap: '10px'
-                }}>
-                  <div>
-                    <div style={{ fontWeight: 800, fontSize: '17px', color: '#1e293b', lineHeight: 1.3 }}>
-                      {prayer.name}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      {prayer.address}
-                    </div>
-                    <span style={{
-                      fontSize: '10px', fontWeight: 700, marginTop: '6px',
-                      padding: '2px 8px', borderRadius: '4px', display: 'inline-block',
-                      background: prayer.city === 'בת ים' ? '#ccfbf1' : '#dbeafe',
-                      color: prayer.city === 'בת ים' ? '#0f766e' : '#1d4ed8',
-                      border: `1px solid ${prayer.city === 'בת ים' ? '#99f6e4' : '#bfdbfe'}`
-                    }}>
-                      {prayer.city || 'חולון'}
-                    </span>
-                  </div>
-                  <div style={{
-                    background: CATEGORY_COLORS[prayer.subCategory === 'mincha_arvit' ? 'mincha_arvit' : prayer.category]?.bg || '#3b82f6',
-                    color: 'white',
-                    fontWeight: 900,
-                    fontSize: '20px',
-                    padding: '6px 14px',
-                    borderRadius: '12px',
-                    textAlign: 'center',
-                    lineHeight: 1.2,
-                    flexShrink: 0,
-                  }}>
-                    {prayer.actualTime}
-                  </div>
-                </div>
-
-                {prayer.distance != null && (
-                  <div style={{
-                    fontSize: '13px', color: '#1d4ed8', background: '#eff6ff',
-                    padding: '7px 10px', borderRadius: '8px', marginBottom: '10px',
-                    fontWeight: 700, textAlign: 'center'
-                  }}>
-                    🚶 {Math.max(1, Math.round(prayer.distance / 80))} דק' הליכה
-                  </div>
-                )}
-
-                {prayer.notes && (
-                  <div style={{
-                    fontSize: '12px', color: '#475569', background: '#f1f5f9',
-                    padding: '7px 10px', borderRadius: '8px', marginBottom: '10px'
-                  }}>
-                    {prayer.notes}
-                  </div>
-                )}
-
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <a
-                    href={`https://waze.com/ul?q=${encodeURIComponent(prayer.address + ' ' + (prayer.city || 'חולון'))}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      flex: 1, background: '#e0f2fe', color: '#0369a1', padding: '9px 0',
-                      borderRadius: '10px', textDecoration: 'none', fontWeight: 700,
-                      fontSize: '14px', textAlign: 'center', display: 'block'
-                    }}
-                  >
-                    Waze
-                  </a>
-                  <a
-                    href={`https://maps.google.com/?q=${encodeURIComponent(prayer.address + ' ' + (prayer.city || 'חולון'))}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      flex: 1, background: '#d1fae5', color: '#047857', padding: '9px 0',
-                      borderRadius: '10px', textDecoration: 'none', fontWeight: 700,
-                      fontSize: '14px', textAlign: 'center', display: 'block'
-                    }}
-                  >
-                    מפות
-                  </a>
-                </div>
-              </div>
+            <Popup closeButton={false} keepInView autoPanPadding={[20, 28]}>
+              <PopupBody prayer={prayer} />
             </Popup>
-
-            <Tooltip
-              direction="top"
-              offset={[0, -5]}
-              permanent={false}
-            >
-              <div style={{ direction: 'rtl', fontWeight: 700, fontSize: '13px' }}>
-                {prayer.name}
-              </div>
-            </Tooltip>
+            <Tooltip direction="top">{prayer.name}</Tooltip>
           </Marker>
         );
       })}
     </MapContainer>
+  );
+}
+
+function PopupBody({ prayer }) {
+  const target = encodeURIComponent(`${prayer.address} ${cityOf(prayer)}`);
+  const countdown = countdownLabel(prayer.minutesAway);
+  const live = prayer.minutesAway !== null && prayer.minutesAway <= 0;
+
+  return (
+    <div dir="rtl" className="text-ink">
+      <div className="flex items-baseline gap-2 px-[13px] pt-[11px] pb-[9px]">
+        <span className="num text-[21px] leading-none font-bold tracking-[-0.02em]">
+          {prayer.actualTime}
+        </span>
+        {countdown && (
+          <span
+            className={`ms-auto rounded-full border px-2 py-[2px] text-[11.5px] font-semibold ${
+              live
+                ? 'border-live-line bg-live-soft text-live'
+                : 'border-accent-line bg-accent-soft text-accent-ink'
+            }`}
+          >
+            {countdown}
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-[2px] px-[13px] pb-[11px]">
+        <b className="text-[14.5px] font-semibold">{prayer.name}</b>
+        <span className="text-[12.5px] text-muted">
+          {prayer.address}, {cityOf(prayer)} · {categoryLabel(prayer)}
+        </span>
+        {prayer.walkMinutes !== null && (
+          <span className="text-[12.5px] font-medium text-ink-2">
+            {prayer.walkMinutes} דקות הליכה
+          </span>
+        )}
+        {prayer.notes && <span className="text-[12px] text-faint">{prayer.notes}</span>}
+      </div>
+
+      <div className="flex border-t border-line">
+        <a
+          href={`https://waze.com/ul?q=${target}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-1 items-center justify-center py-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-surface-2"
+        >
+          Waze
+        </a>
+        <a
+          href={`https://maps.google.com/?q=${target}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-1 items-center justify-center border-s border-line py-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-surface-2"
+        >
+          מפות
+        </a>
+      </div>
+    </div>
   );
 }
