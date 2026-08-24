@@ -71,12 +71,26 @@ export default function App() {
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
+
     const publish = () =>
-      document.documentElement.style.setProperty('--app-header-h', `${el.offsetHeight}px`);
+      document.documentElement.style.setProperty(
+        '--app-header-h',
+        `${Math.round(el.getBoundingClientRect().height)}px`,
+      );
+
     publish();
     const observer = new ResizeObserver(publish);
     observer.observe(el);
-    return () => observer.disconnect();
+    window.addEventListener('resize', publish);
+    // הפונט נטען אחרי הצביעה הראשונה ומגדיל את הכותרת. בלי המדידה הזו
+    // הערך נשאר של גופן הגיבוי, והמפה הדביקה במובייל נתקעת גבוה מדי
+    // ומסתתרת חלקית מאחורי הכותרת.
+    document.fonts?.ready.then(publish).catch(() => {});
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', publish);
+    };
   }, []);
 
   const requestLocation = () => {

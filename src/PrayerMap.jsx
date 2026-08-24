@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { getCoordinates, HOLON_CENTER } from './coordinates';
@@ -46,29 +46,43 @@ function ViewController({ points, fitKey, selectedPrayer, markerRefs }) {
   const map = useMap();
   const fittedKey = useRef(null);
   const prevId = useRef(null);
-  const [size, setSize] = useState(null);
 
-  // Leaflet מודד את המכולה פעם אחת. כאן היא נולדת לפעמים ברוחב 0 (המפה
-  // נטענת ב-Suspense לפני שהפריסה התייצבה), ו-fitBounds מול גודל 0 מחזיר
-  // זום אינסופי שנחתך ל-maxZoom — ואז חצי מהסימונים מחוץ למסך.
+  // Leaflet מודד את המכולה פעם אחת. שינוי גודל מאוחר — מעבר טאב, סיבוב
+  // מסך, שינוי חלון — משאיר אותו עם מידות ישנות.
   useEffect(() => {
-    const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      map.invalidateSize({ animate: false });
-      setSize(width > 0 && height > 0 ? `${Math.round(width)}x${Math.round(height)}` : null);
-    });
+    const invalidate = () => map.invalidateSize({ animate: false });
+    const observer = new ResizeObserver(invalidate);
     observer.observe(map.getContainer());
-    return () => observer.disconnect();
+    window.addEventListener('resize', invalidate);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', invalidate);
+    };
   }, [map]);
 
-  // המסגור מחכה למידות אמיתיות. כל עוד אין — fittedKey לא נקבע, ולכן
-  // ברגע שהמידות מגיעות האפקט רץ שוב וממסגר סוף־סוף.
+  // המסגור מחכה למידות אמיתיות ומנסה שוב בכל פריים עד שהן מגיעות. המפה
+  // נטענת ב-Suspense ולפעמים נולדת ברוחב 0; fitBounds מול גודל 0 מחזיר
+  // זום אינסופי שנחתך ל-maxZoom, ואז חצי מהסימונים מחוץ למסך. אי אפשר
+  // להישען על ResizeObserver בלבד — הוא לא נורה בכל סביבה.
   useEffect(() => {
-    if (!size || points.length === 0 || fittedKey.current === fitKey) return;
-    fittedKey.current = fitKey;
-    prevId.current = selectedPrayer?.id ?? null;
-    map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15 });
-  }, [points, fitKey, size, selectedPrayer, map]);
+    if (points.length === 0 || fittedKey.current === fitKey) return;
+
+    let frame;
+    const attempt = () => {
+      const el = map.getContainer();
+      if (!el.clientWidth || !el.clientHeight) {
+        frame = requestAnimationFrame(attempt);
+        return;
+      }
+      fittedKey.current = fitKey;
+      prevId.current = selectedPrayer?.id ?? null;
+      map.invalidateSize({ animate: false });
+      map.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15 });
+    };
+
+    attempt();
+    return () => cancelAnimationFrame(frame);
+  }, [points, fitKey, selectedPrayer, map]);
 
   useEffect(() => {
     if (!selectedPrayer || selectedPrayer.id === prevId.current) return;

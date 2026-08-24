@@ -30,7 +30,9 @@ export default function ZmanimBar({ zmanim, currentTime }) {
             <span className="mb-[3px] block text-[10.5px] font-medium whitespace-nowrap tracking-[0.06em] text-muted">
               {e.label}
             </span>
-            <span className="mx-auto block h-4 w-10 rounded bg-surface-3" />
+            {/* אותו גובה בדיוק כמו הערך האמיתי (16px × 1.5) — אחרת הכותרת גדלה
+                כשהנתונים מגיעים, וכל מה שדביק מתחתיה זז */}
+            <span className="mx-auto block h-6 w-10 rounded bg-surface-3" />
           </div>
         ))}
       </div>
