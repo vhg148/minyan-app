@@ -1,9 +1,10 @@
 {
- "lastUpdated": "2026-08-23T00:00:00",
+ "lastUpdated": "2026-10-19T00:00:00",
  "sources": {
   "חולון": {
-   "updated": "2026-03-29",
-   "label": "עדכון כללי"
+   "updated": "2026-10-19",
+   "label": "עדכון כללי",
+   "note": "לפי שעון קיץ"
   },
   "בת ים": {
    "updated": "2026-08-16",
@@ -262,13 +263,13 @@
    "id": 674,
    "category": "arvit",
    "time": "צאת הכוכבים",
+   "zmanReference": "tzeit",
+   "offset": 0,
    "name": "מאור אל",
    "address": "",
    "city": "בת ים",
    "notes": "בבולטין: 19:48–19:53",
    "freshness": "current",
-   "zmanReference": "tzeit",
-   "offset": 0,
    "needsAddress": true
   },
   {
@@ -856,13 +857,13 @@
    "id": 656,
    "category": "mincha",
    "time": "20 דק׳ לפני השקיעה",
+   "zmanReference": "sunset",
+   "offset": -20,
    "name": "מאור אל",
    "address": "",
    "city": "בת ים",
    "notes": "בבולטין: 19:07–19:12",
    "freshness": "current",
-   "zmanReference": "sunset",
-   "offset": -20,
    "needsAddress": true
   },
   {
@@ -1184,13 +1185,13 @@
    "id": 604,
    "category": "shacharit",
    "time": "05:30",
+   "zmanReference": "sunrise",
+   "offset": -40,
    "name": "אור ישראל",
    "address": "גבעתי 6 בת ים",
    "city": "בת ים",
    "notes": "40 דקות לפני הנץ החמה",
-   "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": -40
+   "freshness": "current"
   },
   {
    "id": 605,
@@ -1201,10 +1202,10 @@
    "city": "בת ים",
    "notes": "יום חמישי – ראש חודש",
    "freshness": "current",
+   "needsAddress": true,
    "days": [
     4
-   ],
-   "needsAddress": true
+   ]
   },
   {
    "id": 606,
@@ -1231,61 +1232,61 @@
    "id": 609,
    "category": "shacharit",
    "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
    "name": "עולי בבל",
    "address": "הפלמ\"ח 22 בת ים",
    "city": "בת ים",
    "notes": "מניין בהנץ",
-   "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": 0
+   "freshness": "current"
   },
   {
    "id": 610,
    "category": "shacharit",
    "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
    "name": "אורות התורה",
    "address": "מוהליבר 21 בת ים",
    "city": "בת ים",
    "notes": "מניין בהנץ",
-   "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": 0
+   "freshness": "current"
   },
   {
    "id": 611,
    "category": "shacharit",
    "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
    "name": "זכור לאברהם",
    "address": "אהוד קינמון 10 בת ים",
    "city": "בת ים",
    "notes": "מניין בהנץ",
-   "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": 0
+   "freshness": "current"
   },
   {
    "id": 612,
    "category": "shacharit",
    "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
    "name": "אין עוד מלבדו",
    "address": "הרב ניסנבאום 29 בת ים",
    "city": "בת ים",
    "notes": "מניין בהנץ",
-   "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": 0
+   "freshness": "current"
   },
   {
    "id": 613,
    "category": "shacharit",
    "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
    "name": "חיים שאל",
    "address": "",
    "city": "בת ים",
    "notes": "מניין בהנץ",
    "freshness": "current",
-   "zmanReference": "sunrise",
-   "offset": 0,
    "needsAddress": true
   },
   {
@@ -1297,10 +1298,10 @@
    "city": "בת ים",
    "notes": "יום שני",
    "freshness": "current",
+   "needsAddress": true,
    "days": [
     1
-   ],
-   "needsAddress": true
+   ]
   },
   {
    "id": 615,
@@ -1321,13 +1322,13 @@
    "city": "בת ים",
    "notes": "ראשון, שלישי, רביעי, ושישי בראש חודש",
    "freshness": "current",
+   "needsAddress": true,
    "days": [
     0,
     2,
     3,
     5
-   ],
-   "needsAddress": true
+   ]
   },
   {
    "id": 617,
@@ -1455,7 +1456,8 @@
    "time": "18:45",
    "name": "חצי חינם",
    "address": "המרכבה 31",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 401,
@@ -1463,7 +1465,8 @@
    "time": "18:45",
    "name": "הרוקמים 26 D",
    "address": "הרוקמים 26",
-   "notes": "בניין D קומה 1"
+   "notes": "בניין D קומה 1",
+   "freshness": "stale"
   },
   {
    "id": 402,
@@ -1471,7 +1474,8 @@
    "time": "18:45",
    "name": "היכל חיים",
    "address": "הסנהדרין 23",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 403,
@@ -1479,7 +1483,8 @@
    "time": "18:45",
    "name": "סודאי",
    "address": "רוטשילד 12",
-   "notes": "ימים א,ג,ד,ה"
+   "notes": "ימים א,ג,ד,ה",
+   "freshness": "stale"
   },
   {
    "id": 404,
@@ -1487,7 +1492,8 @@
    "time": "18:45",
    "name": "בית הכנסת הגדול",
    "address": "הרב קוק 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 405,
@@ -1495,15 +1501,17 @@
    "time": "18:45",
    "name": "צערי אירן",
    "address": "אלופי צהל 41",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 406,
    "category": "arvit",
-   "time": "19:00",
+   "time": "19:10",
    "name": "סוקולוב 30",
    "address": "סוקולוב 30",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 407,
@@ -1511,7 +1519,8 @@
    "time": "19:00",
    "name": "אבן עזרא",
    "address": "אבן עזרא 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 408,
@@ -1519,7 +1528,8 @@
    "time": "19:00",
    "name": "גבורות יצחק",
    "address": "עוזי נרקיס 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 409,
@@ -1527,7 +1537,8 @@
    "time": "19:00",
    "name": "המצרים",
    "address": "התותחנים 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 410,
@@ -1535,7 +1546,8 @@
    "time": "19:20",
    "name": "סודאי",
    "address": "רוטשילד 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 411,
@@ -1543,7 +1555,8 @@
    "time": "19:30",
    "name": "גן רופין",
    "address": "ריינס 10",
-   "notes": "במקלט, בגינה"
+   "notes": "במקלט, בגינה",
+   "freshness": "stale"
   },
   {
    "id": 412,
@@ -1551,7 +1564,8 @@
    "time": "19:30",
    "name": "סודאי",
    "address": "רוטשילד 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 413,
@@ -1559,7 +1573,8 @@
    "time": "20:00",
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": "ימים א' עד ד'"
+   "notes": "ימים א' עד ד'",
+   "freshness": "stale"
   },
   {
    "id": 414,
@@ -1567,7 +1582,8 @@
    "time": "20:00",
    "name": "בית דוד",
    "address": "ברקת 17",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 415,
@@ -1575,7 +1591,8 @@
    "time": "20:00",
    "name": "אבן עזרא",
    "address": "אבן עזרא 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 416,
@@ -1583,7 +1600,8 @@
    "time": "20:00",
    "name": "דברי שלום",
    "address": "השומר 19",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 417,
@@ -1591,7 +1609,8 @@
    "time": "20:00",
    "name": "בית מדרש נפתלי",
    "address": "אילת 36",
-   "notes": "קומה ב'"
+   "notes": "קומה ב'",
+   "freshness": "stale"
   },
   {
    "id": 418,
@@ -1599,7 +1618,8 @@
    "time": "20:00",
    "name": "אור התורה",
    "address": "יפה ירקוני 11",
-   "notes": "קומה -1"
+   "notes": "קומה -1",
+   "freshness": "stale"
   },
   {
    "id": 419,
@@ -1607,7 +1627,8 @@
    "time": "20:10",
    "name": "אחים ורעים",
    "address": "התחייה 14",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 420,
@@ -1615,7 +1636,8 @@
    "time": "20:30",
    "name": "צעירי אירן",
    "address": "אלופי צהל 41",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 421,
@@ -1623,23 +1645,26 @@
    "time": "20:30",
    "name": "רבי נחמן",
    "address": "מונטיפיורי 13",
-   "notes": "א'+ד'"
+   "notes": "א'+ד'",
+   "freshness": "current"
   },
   {
    "id": 422,
    "category": "arvit",
-   "time": "20:30",
+   "time": "21:15",
    "name": "גבורות יצחק",
    "address": "עוזי נרקיס 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 423,
    "category": "arvit",
-   "time": "20:30",
+   "time": "21:00",
    "name": "נחלת שלום",
    "address": "יהודה הלוי 31",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 424,
@@ -1647,7 +1672,8 @@
    "time": "20:30",
    "name": "אור יוסף",
    "address": "צהלים 26",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 425,
@@ -1655,7 +1681,8 @@
    "time": "21:00",
    "name": "הליכות עולם",
    "address": "דבורה הנביאה 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 426,
@@ -1663,7 +1690,8 @@
    "time": "21:00",
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 427,
@@ -1671,7 +1699,8 @@
    "time": "21:00",
    "name": "סוכת שלום",
    "address": "ברנר 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 428,
@@ -1679,7 +1708,8 @@
    "time": "21:00",
    "name": "סולם יעקב",
    "address": "מקלף 16",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 429,
@@ -1687,15 +1717,17 @@
    "time": "21:00",
    "name": "בית כורש",
    "address": "המצודה 1",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 430,
    "category": "arvit",
-   "time": "21:05",
+   "time": "21:30",
    "name": "חב\"ד חביבה רייך",
    "address": "חביבה רייך",
-   "notes": "ימים א' עד ד'"
+   "notes": "ימים א' עד ד'",
+   "freshness": "current"
   },
   {
    "id": 431,
@@ -1703,7 +1735,8 @@
    "time": "21:00",
    "name": "בית אל",
    "address": "שטרוק 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 432,
@@ -1711,7 +1744,8 @@
    "time": "21:15",
    "name": "מטה משה",
    "address": "החרצית 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 433,
@@ -1719,7 +1753,8 @@
    "time": "21:15",
    "name": "רבן יוחנן בן זכאי",
    "address": "סעדיה גאון 21",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 434,
@@ -1727,7 +1762,8 @@
    "time": "21:15",
    "name": "בית כורש",
    "address": "המצודה 1",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 435,
@@ -1735,7 +1771,8 @@
    "time": "21:15",
    "name": "התותחנים 8",
    "address": "התותחנים 8",
-   "notes": "ימים ב'-ג' בלבד"
+   "notes": "ימים ב'-ג' בלבד",
+   "freshness": "current"
   },
   {
    "id": 436,
@@ -1743,7 +1780,8 @@
    "time": "21:30",
    "name": "אחוה ורעות",
    "address": "הנביאים 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 437,
@@ -1751,7 +1789,8 @@
    "time": "21:30",
    "name": "חב\"ד",
    "address": "פנחס איילון 13",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 438,
@@ -1759,7 +1798,8 @@
    "time": "21:45",
    "name": "צעירי אירן",
    "address": "אלופי צהל 41",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 439,
@@ -1767,7 +1807,8 @@
    "time": "21:50",
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 440,
@@ -1775,7 +1816,8 @@
    "time": "22:00",
    "name": "המועצה הדתית",
    "address": "הרב קוק 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 441,
@@ -1783,7 +1825,8 @@
    "time": "22:00",
    "name": "עטרת חכמים",
    "address": "החיים 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 442,
@@ -1791,7 +1834,8 @@
    "time": "22:15",
    "name": "עטרת אליהו",
    "address": "יבנה 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 443,
@@ -1799,7 +1843,8 @@
    "time": "22:15",
    "name": "אבן עזרא",
    "address": "אבן עזרא 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 444,
@@ -1807,15 +1852,17 @@
    "time": "22:45",
    "name": "חיים אברהם",
    "address": "אלופי צהל 10",
-   "notes": "יום א' בלבד"
+   "notes": "יום א' בלבד",
+   "freshness": "current"
   },
   {
    "id": 445,
    "category": "arvit",
-   "time": "23:30",
+   "time": "23:00",
    "name": "פירוב",
    "address": "זלמן שזר",
-   "notes": "תל אביב, 3 דקות מתל גיבורים"
+   "notes": "תל אביב, 3 דקות מתל גיבורים",
+   "freshness": "current"
   },
   {
    "id": 447,
@@ -1823,7 +1870,8 @@
    "time": "01:20",
    "name": "נחלת יהודה",
    "address": "סורוצקין",
-   "notes": "ראשון לציון, ישיבת סורוצקין"
+   "notes": "ראשון לציון, ישיבת סורוצקין",
+   "freshness": "current"
   },
   {
    "id": 200,
@@ -1831,7 +1879,8 @@
    "time": "13:15",
    "name": "מבצע סיני 22",
    "address": "מבצע סיני 22",
-   "notes": "מנחה גדולה, יום שישי בלבד"
+   "notes": "מנחה גדולה, יום שישי בלבד",
+   "freshness": "current"
   },
   {
    "id": 201,
@@ -1839,7 +1888,8 @@
    "time": "13:15",
    "name": "מעודה",
    "address": "הנביאים 68",
-   "notes": "מנחה גדולה, יום שישי בלבד"
+   "notes": "מנחה גדולה, יום שישי בלבד",
+   "freshness": "current"
   },
   {
    "id": 202,
@@ -1847,7 +1897,8 @@
    "time": "13:15",
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": "מנחה גדולה, יום שישי בלבד"
+   "notes": "מנחה גדולה, יום שישי בלבד",
+   "freshness": "current"
   },
   {
    "id": 203,
@@ -1855,7 +1906,8 @@
    "time": "13:15",
    "name": "רבנות חולון",
    "address": "הרב קוק 5",
-   "notes": "מנחה גדולה, יום שישי בלבד"
+   "notes": "מנחה גדולה, יום שישי בלבד",
+   "freshness": "current"
   },
   {
    "id": 204,
@@ -1863,7 +1915,8 @@
    "time": "13:15",
    "name": "זכור לאברהם",
    "address": "ורבורג 7",
-   "notes": "מנחה גדולה, יום שישי בלבד"
+   "notes": "מנחה גדולה, יום שישי בלבד",
+   "freshness": "current"
   },
   {
    "id": 205,
@@ -1871,7 +1924,8 @@
    "time": "13:15",
    "name": "הרב זרוק",
    "address": "אילת 36",
-   "notes": "קומת מרתף"
+   "notes": "קומת מרתף",
+   "freshness": "current"
   },
   {
    "id": 206,
@@ -1879,7 +1933,8 @@
    "time": "13:30",
    "name": "עזיראלי",
    "address": "הרוקמים 26",
-   "notes": "בניין A קומה 0"
+   "notes": "בניין A קומה 0",
+   "freshness": "current"
   },
   {
    "id": 207,
@@ -1887,7 +1942,8 @@
    "time": "13:15",
    "name": "מבצע סיני 9",
    "address": "מבצע סיני 9",
-   "notes": "ימים א-ו, אשרי"
+   "notes": "ימים א-ו, אשרי",
+   "freshness": "current"
   },
   {
    "id": 208,
@@ -1895,7 +1951,8 @@
    "time": "13:15",
    "name": "הרמב\"ם",
    "address": "השילוח 23",
-   "notes": "אשרי"
+   "notes": "אשרי",
+   "freshness": "current"
   },
   {
    "id": 209,
@@ -1903,7 +1960,8 @@
    "time": "13:15",
    "name": "תפארת בחורים",
    "address": "עין גדי 1",
-   "notes": "אשרי"
+   "notes": "אשרי",
+   "freshness": "current"
   },
   {
    "id": 210,
@@ -1911,7 +1969,8 @@
    "time": "13:15",
    "name": "מונטיפיורי",
    "address": "מונטיפיורי 13",
-   "notes": "מתחילים אשרי"
+   "notes": "מתחילים אשרי",
+   "freshness": "current"
   },
   {
    "id": 211,
@@ -1919,7 +1978,8 @@
    "time": "13:15",
    "name": "סודאי",
    "address": "רוטשילד 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 212,
@@ -1927,23 +1987,26 @@
    "time": "13:15",
    "name": "סודאי למעלה",
    "address": "רוטשילד 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 213,
    "category": "mincha",
-   "time": "13:15",
+   "time": "13:10",
    "name": "היכל חיים",
    "address": "הסנהדרין 23",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 214,
    "category": "mincha",
-   "time": "13:15",
+   "time": "13:10",
    "name": "מעודה",
    "address": "הנביאים 68",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 215,
@@ -1951,7 +2014,8 @@
    "time": "13:15",
    "name": "אהבה ואחוה",
    "address": "פנחס לבון 1",
-   "notes": "בכולל למעלה"
+   "notes": "בכולל למעלה",
+   "freshness": "current"
   },
   {
    "id": 216,
@@ -1959,7 +2023,8 @@
    "time": "13:15",
    "name": "גבורת יצחק",
    "address": "עוזי נרקיס 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 217,
@@ -1967,7 +2032,8 @@
    "time": "13:15",
    "name": "אבן עזרא",
    "address": "אבן עזרא 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 218,
@@ -1975,7 +2041,8 @@
    "time": "13:15",
    "name": "המצרים",
    "address": "התותחנים 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 219,
@@ -1983,7 +2050,8 @@
    "time": "13:15",
    "name": "מאיר עיניים",
    "address": "משעול הפז 13",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 220,
@@ -1991,7 +2059,8 @@
    "time": "13:15",
    "name": "אריק אינשטיין",
    "address": "אריק אינשטיין 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 221,
@@ -1999,7 +2068,8 @@
    "time": "13:15",
    "name": "יד יצחק",
    "address": "לנדאו 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 222,
@@ -2007,7 +2077,8 @@
    "time": "13:15",
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 223,
@@ -2015,7 +2086,8 @@
    "time": "13:15",
    "name": "זכור לאברהם",
    "address": "ורבורג 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 224,
@@ -2023,7 +2095,8 @@
    "time": "13:15",
    "name": "מתחם הסיירים",
    "address": "המרכבה 40",
-   "notes": "צמוד לנייק"
+   "notes": "צמוד לנייק",
+   "freshness": "current"
   },
   {
    "id": 225,
@@ -2031,7 +2104,8 @@
    "time": "13:15",
    "name": "מפעל יהודה",
    "address": "הסתת 6",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 226,
@@ -2039,7 +2113,8 @@
    "time": "13:15",
    "name": "עטרת חכמים",
    "address": "החיים 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 227,
@@ -2047,7 +2122,8 @@
    "time": "13:15",
    "name": "הלוחמים 53",
    "address": "הלוחמים 53",
-   "notes": "בניין צרפתי קומה 2, צמוד לדלק מיקה"
+   "notes": "בניין צרפתי קומה 2, צמוד לדלק מיקה",
+   "freshness": "current"
   },
   {
    "id": 228,
@@ -2055,7 +2131,8 @@
    "time": "13:15",
    "name": "אור יוסף",
    "address": "צאלים 26",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 229,
@@ -2063,7 +2140,8 @@
    "time": "13:20",
    "name": "פלאפל א' א'",
    "address": "חנקין 67",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 230,
@@ -2071,7 +2149,8 @@
    "time": "13:20",
    "name": "בית חולים וולפסון",
    "address": "הלוחמים 62",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 231,
@@ -2079,7 +2158,8 @@
    "time": "13:30",
    "name": "הרוקמים 26 A",
    "address": "הרוקמים 26",
-   "notes": "בניין A קומה 0"
+   "notes": "בניין A קומה 0",
+   "freshness": "current"
   },
   {
    "id": 232,
@@ -2087,7 +2167,8 @@
    "time": "13:30",
    "name": "הרוקמים 26 D",
    "address": "הרוקמים 26",
-   "notes": "בניין D קומה 1"
+   "notes": "בניין D קומה 1",
+   "freshness": "current"
   },
   {
    "id": 233,
@@ -2095,7 +2176,8 @@
    "time": "13:30",
    "name": "חב\"ד",
    "address": "פנחס אליון 13",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 234,
@@ -2103,7 +2185,8 @@
    "time": "13:30",
    "name": "אבי הספר",
    "address": "ששת הימים 1",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 235,
@@ -2111,7 +2194,8 @@
    "time": "13:30",
    "name": "רמי לוי",
    "address": "תמנע 6",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 236,
@@ -2119,7 +2203,8 @@
    "time": "13:30",
    "name": "עיריית חולון",
    "address": "ויצמן 58",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 237,
@@ -2127,7 +2212,8 @@
    "time": "13:30",
    "name": "מוסך הכוכב",
    "address": "הפלד 19",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 238,
@@ -2135,7 +2221,8 @@
    "time": "13:30",
    "name": "הצורף 2",
    "address": "הצורף 2",
-   "notes": "ליד המכולת"
+   "notes": "ליד המכולת",
+   "freshness": "current"
   },
   {
    "id": 239,
@@ -2143,7 +2230,8 @@
    "time": "13:30",
    "name": "בניין בזק",
    "address": "המנור 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 240,
@@ -2151,7 +2239,8 @@
    "time": "13:30",
    "name": "הרוקמים 23",
    "address": "הרוקמים 23",
-   "notes": "קומה 5"
+   "notes": "קומה 5",
+   "freshness": "current"
   },
   {
    "id": 241,
@@ -2159,7 +2248,8 @@
    "time": "13:45",
    "name": "קונטריה רוני",
    "address": "הבנאי 40",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 242,
@@ -2167,7 +2257,8 @@
    "time": "14:00",
    "name": "תבילני ידעי",
    "address": "דב הוז 22",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 243,
@@ -2175,7 +2266,8 @@
    "time": "14:00",
    "name": "הרוקמים 26 C",
    "address": "הרוקמים 26",
-   "notes": "בניין C קומה 12"
+   "notes": "בניין C קומה 12",
+   "freshness": "current"
   },
   {
    "id": 244,
@@ -2183,7 +2275,8 @@
    "time": "14:00",
    "name": "סוקולוב 30",
    "address": "סוקולוב 30",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 245,
@@ -2191,7 +2284,8 @@
    "time": "14:00",
    "name": "מרכז סדאב",
    "address": "מרכז סדאב",
-   "notes": "בכניסה ליד המוניות"
+   "notes": "בכניסה ליד המוניות",
+   "freshness": "current"
   },
   {
    "id": 246,
@@ -2199,7 +2293,8 @@
    "time": "14:15",
    "name": "תבילי ידעי",
    "address": "קרואזה 59",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 247,
@@ -2207,7 +2302,8 @@
    "time": "14:30",
    "name": "בניין בזק",
    "address": "המנור 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 248,
@@ -2215,7 +2311,8 @@
    "time": "15:00",
    "name": "חצי חינם",
    "address": "המרכבה 31",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 249,
@@ -2223,7 +2320,8 @@
    "time": "15:00",
    "name": "שדרות ירושלים 155",
    "address": "שדרות ירושלים 155",
-   "notes": "בממ\"ד בלובי הכניסה"
+   "notes": "בממ\"ד בלובי הכניסה",
+   "freshness": "current"
   },
   {
    "id": 250,
@@ -2231,7 +2329,8 @@
    "time": "15:10",
    "name": "ישיבת ההסדר",
    "address": "הסיגלון",
-   "notes": "אשרי, צמוד לבה\"ס דביר"
+   "notes": "אשרי, צמוד לבה\"ס דביר",
+   "freshness": "current"
   },
   {
    "id": 251,
@@ -2239,7 +2338,8 @@
    "time": "15:15",
    "name": "מפרץ שלמה",
    "address": "מפרץ שלמה 100",
-   "notes": ""
+   "notes": "",
+   "freshness": "stale"
   },
   {
    "id": 260,
@@ -2249,7 +2349,8 @@
    "offset": -25,
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 261,
@@ -2259,7 +2360,8 @@
    "offset": -25,
    "name": "גבורות יצחק",
    "address": "עוזי נרקיס 4",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 262,
@@ -2269,7 +2371,8 @@
    "offset": -25,
    "name": "אהבה ואחוה",
    "address": "פנחס לבון 1",
-   "notes": "25 דקות לפני פלג המנחה, בתוך הגינה"
+   "notes": "25 דקות לפני פלג המנחה, בתוך הגינה",
+   "freshness": "current"
   },
   {
    "id": 263,
@@ -2279,7 +2382,8 @@
    "offset": -25,
    "name": "נחלת שלום",
    "address": "יהודה הלוי 31",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 264,
@@ -2289,7 +2393,8 @@
    "offset": -25,
    "name": "רבי מאיר בעל הנס",
    "address": "תותחנים 9",
-   "notes": "25 דקות לפני פלג המנחה, קומה ג'"
+   "notes": "25 דקות לפני פלג המנחה, קומה ג'",
+   "freshness": "current"
   },
   {
    "id": 265,
@@ -2299,7 +2404,8 @@
    "offset": -25,
    "name": "אהבת שלום",
    "address": "אריק לביא 2",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 266,
@@ -2309,16 +2415,19 @@
    "offset": -25,
    "name": "אוהל בן שלום",
    "address": "בילו 20",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 267,
    "category": "mincha",
-   "time": "18:00",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
    "name": "בית רבינו",
    "address": "אהרונוביץ 91",
-   "notes": "",
-   "pairing": "consecutive"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 268,
@@ -2328,7 +2437,8 @@
    "offset": -25,
    "name": "קרית שרת",
    "address": "קרית שרת מרכז מסחרי",
-   "notes": "25 דקות לפני פלג המנחה, בתשמישי קדושה"
+   "notes": "25 דקות לפני פלג המנחה, בתשמישי קדושה",
+   "freshness": "current"
   },
   {
    "id": 269,
@@ -2338,7 +2448,8 @@
    "offset": -25,
    "name": "תתפלל חנה",
    "address": "מולכו 7",
-   "notes": "25 דקות לפני פלג המנחה"
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   },
   {
    "id": 280,
@@ -2349,6 +2460,7 @@
    "name": "רבי עקיבא 6",
    "address": "רבי עקיבא 6",
    "notes": "20 דקות לפני השקיעה",
+   "freshness": "current",
    "pairing": "consecutive"
   },
   {
@@ -2360,6 +2472,7 @@
    "name": "נחלת שלום",
    "address": "יהודה הלוי 31",
    "notes": "כ-20 דקות לפני השקיעה",
+   "freshness": "current",
    "pairing": "consecutive"
   },
   {
@@ -2371,6 +2484,7 @@
    "name": "אהבת שלום",
    "address": "אריק לביא 2",
    "notes": "רבע שעה לפני השקיעה",
+   "freshness": "current",
    "pairing": "consecutive"
   },
   {
@@ -2382,6 +2496,7 @@
    "name": "בית יצחק",
    "address": "ניסנבואים 8",
    "notes": "20 דקות לפני השקיעה",
+   "freshness": "current",
    "pairing": "consecutive"
   },
   {
@@ -2391,6 +2506,7 @@
    "name": "באר האמונה",
    "address": "יוטבתה 24",
    "notes": "",
+   "freshness": "current",
    "pairing": "consecutive"
   },
   {
@@ -2402,6 +2518,7 @@
    "name": "אריק אינשטיין",
    "address": "אריק אינשטיין 7",
    "notes": "כ-45 דקות לפני השקיעה מנחה",
+   "freshness": "stale",
    "pairing": "consecutive"
   },
   {
@@ -2412,7 +2529,8 @@
    "offset": 0,
    "name": "עטרת אליהו",
    "address": "יבנה 8",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 2,
@@ -2422,7 +2540,8 @@
    "offset": 0,
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 3,
@@ -2432,7 +2551,8 @@
    "offset": 0,
    "name": "הליכות עולם",
    "address": "דבורה הנביאה 5",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 4,
@@ -2442,7 +2562,8 @@
    "offset": 0,
    "name": "דרכי נועם",
    "address": "חיים לנדאו 12",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 5,
@@ -2452,7 +2573,8 @@
    "offset": 0,
    "name": "סולם יעקב",
    "address": "מקלף 16",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 6,
@@ -2462,7 +2584,8 @@
    "offset": 0,
    "name": "מטה משה",
    "address": "החרצית 5",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 7,
@@ -2472,7 +2595,8 @@
    "offset": 0,
    "name": "צעירי אירן",
    "address": "אלופי צהל 41",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 8,
@@ -2482,7 +2606,8 @@
    "offset": 0,
    "name": "זכור לאברהם",
    "address": "ורבורג 7",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 9,
@@ -2492,7 +2617,8 @@
    "offset": 0,
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 10,
@@ -2502,7 +2628,8 @@
    "offset": 0,
    "name": "הרמב\"ם",
    "address": "הצרעה 3",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 11,
@@ -2512,7 +2639,8 @@
    "offset": 0,
    "name": "סודאי",
    "address": "רוטשליד 12",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 12,
@@ -2522,7 +2650,8 @@
    "offset": 0,
    "name": "אהבת השם",
    "address": "ברקת 17",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 13,
@@ -2532,7 +2661,8 @@
    "offset": 0,
    "name": "מאיר עיניים",
    "address": "משעול הפז 17",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 14,
@@ -2542,7 +2672,8 @@
    "offset": 0,
    "name": "עטרת חכמים",
    "address": "החיים 4",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 15,
@@ -2552,7 +2683,8 @@
    "offset": 0,
    "name": "תורת משה חיים",
    "address": "אבן עזרא 3",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 16,
@@ -2562,7 +2694,8 @@
    "offset": 0,
    "name": "בית יוסף",
    "address": "מבצע סיני 24",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 17,
@@ -2572,7 +2705,8 @@
    "offset": 0,
    "name": "דברי שלום",
    "address": "השומר 19",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 18,
@@ -2582,7 +2716,8 @@
    "offset": 0,
    "name": "בית כורש",
    "address": "המצודה 1",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 19,
@@ -2592,7 +2727,8 @@
    "offset": 0,
    "name": "רשב\"י",
    "address": "בית לחם 9",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 20,
@@ -2602,7 +2738,8 @@
    "offset": 0,
    "name": "סוכת שלום",
    "address": "ברנר 10",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 21,
@@ -2612,7 +2749,8 @@
    "offset": 0,
    "name": "תפארת בחורים",
    "address": "עין גדי 1",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 22,
@@ -2622,7 +2760,8 @@
    "offset": 0,
    "name": "משכן אליהו",
    "address": "הדקל 5",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 23,
@@ -2632,7 +2771,8 @@
    "offset": 0,
    "name": "ואהבת - בית דוד",
    "address": "ברקת 19",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 24,
@@ -2642,7 +2782,8 @@
    "offset": 0,
    "name": "שערי ציון",
    "address": "הנביאים 5",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 25,
@@ -2652,7 +2793,8 @@
    "offset": 0,
    "name": "גבורת יצחק",
    "address": "עוזי נרקיס 4",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 26,
@@ -2662,7 +2804,8 @@
    "offset": 0,
    "name": "אהבה ואחוה",
    "address": "פנחס לבון 1",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 27,
@@ -2672,7 +2815,8 @@
    "offset": 0,
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 28,
@@ -2682,7 +2826,8 @@
    "offset": 0,
    "name": "אהבת השם",
    "address": "ברקת 17",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 29,
@@ -2692,7 +2837,8 @@
    "offset": 0,
    "name": "ותתפלל חנה",
    "address": "מולכו 5",
-   "notes": "קורבנות 45 דקות לפני זמן הנץ"
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
   },
   {
    "id": 30,
@@ -2700,7 +2846,8 @@
    "time": "04:45",
    "name": "רבן יוחנן בן זכאי",
    "address": "סעדיה גאון 18",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 31,
@@ -2708,7 +2855,8 @@
    "time": "04:50",
    "name": "אוהל בן שלום",
    "address": "בילו 20",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 32,
@@ -2716,7 +2864,8 @@
    "time": "05:20",
    "name": "עולי בבל",
    "address": "אשתאול 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 33,
@@ -2724,7 +2873,8 @@
    "time": "05:20",
    "name": "דברי שלום ואמת",
    "address": "השומר 19",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 34,
@@ -2732,7 +2882,8 @@
    "time": "05:30",
    "name": "הרמב\"ם",
    "address": "השילוח 23",
-   "notes": "קרית שרת"
+   "notes": "קרית שרת",
+   "freshness": "current"
   },
   {
    "id": 35,
@@ -2740,7 +2891,8 @@
    "time": "05:35",
    "name": "ארם נהרים",
    "address": "ברנר 9",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 36,
@@ -2748,7 +2900,8 @@
    "time": "05:40",
    "name": "חסדי שמים",
    "address": "קדשי קהיר 14",
-   "notes": "קורבנות"
+   "notes": "קורבנות",
+   "freshness": "current"
   },
   {
    "id": 37,
@@ -2756,7 +2909,8 @@
    "time": "05:45",
    "name": "קדושי צהל",
    "address": "הפלמ\"ח 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 38,
@@ -2764,7 +2918,8 @@
    "time": "05:45",
    "name": "היכל משה",
    "address": "שער ציון 25",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 39,
@@ -2772,7 +2927,8 @@
    "time": "05:45",
    "name": "עטרת ישועה",
    "address": "זלמן ארן 4",
-   "notes": "במקלט"
+   "notes": "במקלט",
+   "freshness": "current"
   },
   {
    "id": 40,
@@ -2780,7 +2936,8 @@
    "time": "05:45",
    "name": "אהבה ואחוה",
    "address": "פנחס לבון 1",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 41,
@@ -2788,7 +2945,8 @@
    "time": "05:45",
    "name": "אריק אינשטיין",
    "address": "אריק אינשטיין 7",
-   "notes": "קרבנות"
+   "notes": "קרבנות",
+   "freshness": "current"
   },
   {
    "id": 42,
@@ -2796,7 +2954,8 @@
    "time": "05:50",
    "name": "שערי רצון",
    "address": "ביאליק 29",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 43,
@@ -2804,7 +2963,8 @@
    "time": "05:50",
    "name": "ישועות אליהו",
    "address": "העליה השניה 37",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 44,
@@ -2812,7 +2972,8 @@
    "time": "05:50",
    "name": "ביהכ\"נ הגדול",
    "address": "הרב קוק 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 45,
@@ -2820,7 +2981,8 @@
    "time": "05:55",
    "name": "בית אל",
    "address": "שטרוק 8",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 46,
@@ -2828,7 +2990,8 @@
    "time": "06:00",
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 47,
@@ -2836,7 +2999,8 @@
    "time": "06:00",
    "name": "ריב\"ז",
    "address": "סעדיה גאון 18",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 48,
@@ -2844,7 +3008,8 @@
    "time": "06:00",
    "name": "מזמור לדוד",
    "address": "אריק אינשטיין 7",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 49,
@@ -2852,7 +3017,8 @@
    "time": "06:00",
    "name": "היכל אליהו",
    "address": "קוגל 10",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 50,
@@ -2860,7 +3026,8 @@
    "time": "06:00",
    "name": "מישרים",
    "address": "שמעיה 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 51,
@@ -2868,7 +3035,8 @@
    "time": "06:00",
    "name": "חללי צהל",
    "address": "חשמונאים 51",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 52,
@@ -2876,7 +3044,8 @@
    "time": "06:00",
    "name": "הרב זרוק",
    "address": "אילת 36",
-   "notes": "קורבנות"
+   "notes": "קורבנות",
+   "freshness": "current"
   },
   {
    "id": 53,
@@ -2884,7 +3053,8 @@
    "time": "06:00",
    "name": "אור חדש",
    "address": "ראש פינה 5",
-   "notes": "במקלט, בגינה"
+   "notes": "במקלט, בגינה",
+   "freshness": "current"
   },
   {
    "id": 54,
@@ -2892,7 +3062,8 @@
    "time": "06:00",
    "name": "עדת ישורון",
    "address": "סביון 7",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 55,
@@ -2900,7 +3071,8 @@
    "time": "06:05",
    "name": "שערי ציון",
    "address": "הנביאים 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 56,
@@ -2908,7 +3080,8 @@
    "time": "06:10",
    "name": "אהבת ישראל",
    "address": "אילת 18",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 57,
@@ -2916,7 +3089,8 @@
    "time": "06:10",
    "name": "נצח ישראל",
    "address": "העצמון 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 58,
@@ -2924,7 +3098,8 @@
    "time": "06:10",
    "name": "חפץ חיים",
    "address": "עין גדי 20",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 59,
@@ -2932,7 +3107,8 @@
    "time": "06:15",
    "name": "כפוסי",
    "address": "שמריהו לוין 7",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 60,
@@ -2940,7 +3116,8 @@
    "time": "06:15",
    "name": "עץ חיים",
    "address": "אברבנאל 3",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 61,
@@ -2948,7 +3125,8 @@
    "time": "06:15",
    "name": "גאולת ישראל",
    "address": "אלופי צה\"ל 10",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 62,
@@ -2956,7 +3134,8 @@
    "time": "06:15",
    "name": "הרמב\"ם",
    "address": "הרמב\"ם תל גיבורים",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 63,
@@ -2964,7 +3143,8 @@
    "time": "06:25",
    "name": "ישורון",
    "address": "בן יהודה 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 64,
@@ -2972,7 +3152,8 @@
    "time": "06:30",
    "name": "סולם יעקב",
    "address": "מקלף 16",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 65,
@@ -2980,7 +3161,8 @@
    "time": "06:30",
    "name": "בית אל",
    "address": "שטרוק 8",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 66,
@@ -2988,7 +3170,8 @@
    "time": "06:30",
    "name": "חב\"ד",
    "address": "שד' ירושלים 156",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 67,
@@ -2996,7 +3179,8 @@
    "time": "06:30",
    "name": "חב\"ד",
    "address": "החרצית 5",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 68,
@@ -3004,7 +3188,8 @@
    "time": "06:30",
    "name": "גן הרצל",
    "address": "ההסתדרות 35",
-   "notes": "במקלט"
+   "notes": "במקלט",
+   "freshness": "current"
   },
   {
    "id": 69,
@@ -3012,7 +3197,8 @@
    "time": "06:15",
    "name": "אור התורה",
    "address": "יפה ירקוני 11",
-   "notes": "קומה -1, בימים שקוראים בתורה"
+   "notes": "קומה -1, בימים שקוראים בתורה",
+   "freshness": "current"
   },
   {
    "id": 70,
@@ -3020,7 +3206,8 @@
    "time": "06:30",
    "name": "אור התורה",
    "address": "יפה ירקוני 11",
-   "notes": "קומה -1"
+   "notes": "קומה -1, בימים שלא קוראים בתורה",
+   "freshness": "current"
   },
   {
    "id": 71,
@@ -3028,7 +3215,8 @@
    "time": "06:45",
    "name": "זיכרון קדושים",
    "address": "הצפירה 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 72,
@@ -3036,7 +3224,8 @@
    "time": "06:45",
    "name": "סוכת שלום",
    "address": "קאפח 20",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 73,
@@ -3044,7 +3233,8 @@
    "time": "06:45",
    "name": "שער השמיים",
    "address": "עין גדי 18",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 74,
@@ -3052,7 +3242,8 @@
    "time": "06:45",
    "name": "משכן מאיר",
    "address": "זרובבל 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 75,
@@ -3060,7 +3251,8 @@
    "time": "06:50",
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 76,
@@ -3068,7 +3260,8 @@
    "time": "06:50",
    "name": "תתפלל חנה",
    "address": "מולכו 7",
-   "notes": "ימים ב' ה'"
+   "notes": "ימים ב' ה'",
+   "freshness": "current"
   },
   {
    "id": 77,
@@ -3076,7 +3269,8 @@
    "time": "06:50",
    "name": "חסדי שמים",
    "address": "קדשי קהיר 14",
-   "notes": "קורבנות"
+   "notes": "קורבנות",
+   "freshness": "current"
   },
   {
    "id": 78,
@@ -3084,7 +3278,8 @@
    "time": "07:00",
    "name": "הרמב\"ם",
    "address": "השילוח 23",
-   "notes": "קרית שרת"
+   "notes": "קרית שרת",
+   "freshness": "current"
   },
   {
    "id": 79,
@@ -3092,7 +3287,8 @@
    "time": "07:00",
    "name": "מחנה אפריים",
    "address": "הסנהדרין 21",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 80,
@@ -3100,7 +3296,8 @@
    "time": "07:00",
    "name": "תתפלל חנה",
    "address": "מולכו 7",
-   "notes": "א,ג,ד,ו'"
+   "notes": "א,ג,ד,ו'",
+   "freshness": "current"
   },
   {
    "id": 81,
@@ -3108,7 +3305,8 @@
    "time": "07:00",
    "name": "דרכי נועם",
    "address": "לנדאו 12",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 82,
@@ -3116,7 +3314,8 @@
    "time": "07:00",
    "name": "שערי רצון",
    "address": "ביאליק 29",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 83,
@@ -3124,7 +3323,8 @@
    "time": "07:00",
    "name": "סודאי",
    "address": "רוטשילד 12",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 84,
@@ -3132,7 +3332,8 @@
    "time": "07:00",
    "name": "עטרת חכמים",
    "address": "החיים 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 85,
@@ -3140,7 +3341,8 @@
    "time": "07:00",
    "name": "נחלת שלום",
    "address": "יהודה הלוי 31",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 86,
@@ -3148,7 +3350,8 @@
    "time": "07:00",
    "name": "צעירי אירן",
    "address": "אלופי צהל 41",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 87,
@@ -3156,7 +3359,8 @@
    "time": "07:00",
    "name": "מעוז יעקב",
    "address": "הגר\"א 35",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 88,
@@ -3164,7 +3368,8 @@
    "time": "07:00",
    "name": "זכרון לקדושים",
    "address": "הצפירה 5",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 89,
@@ -3172,7 +3377,8 @@
    "time": "07:10",
    "name": "עטרת אליהו",
    "address": "יבנה 8",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 90,
@@ -3180,15 +3386,17 @@
    "time": "07:10",
    "name": "אביר יעקב",
    "address": "נחמיה 7",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 91,
    "category": "shacharit",
-   "time": "07:15",
+   "time": "07:30",
    "name": "ישיבת ההסדר",
    "address": "התחייה 14",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 92,
@@ -3196,7 +3404,8 @@
    "time": "07:15",
    "name": "היכל משה",
    "address": "שער ציון 25",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 93,
@@ -3204,7 +3413,8 @@
    "time": "07:15",
    "name": "מונטיפיורי",
    "address": "מונטיפיורי 13",
-   "notes": "ימים ב',ה' הודו בניגונים"
+   "notes": "ימים ב',ה' הודו בניגונים",
+   "freshness": "current"
   },
   {
    "id": 94,
@@ -3212,15 +3422,17 @@
    "time": "07:15",
    "name": "אהבה ואחוה",
    "address": "פנחס לבון 1",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 95,
    "category": "shacharit",
-   "time": "07:30",
+   "time": "07:15",
    "name": "כתר תורה",
    "address": "הסנהדרין 23",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 96,
@@ -3228,7 +3440,8 @@
    "time": "07:30",
    "name": "דברי שלום",
    "address": "השומר 19",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 97,
@@ -3236,7 +3449,8 @@
    "time": "07:30",
    "name": "מונטיפיורי",
    "address": "מונטיפיורי 13",
-   "notes": "ימים א,ג,ד,ו הודו בניגונים"
+   "notes": "ימים א,ג,ד,ו הודו בניגונים",
+   "freshness": "current"
   },
   {
    "id": 98,
@@ -3244,7 +3458,8 @@
    "time": "07:30",
    "name": "קדושי צהל",
    "address": "הפלמח 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 99,
@@ -3252,7 +3467,8 @@
    "time": "07:30",
    "name": "חב\"ד",
    "address": "פנחס אילון 13",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 100,
@@ -3260,7 +3476,8 @@
    "time": "07:30",
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 101,
@@ -3268,7 +3485,8 @@
    "time": "07:30",
    "name": "קדושי צה\"ל",
    "address": "הפלמ\"ח 4",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 102,
@@ -3276,7 +3494,8 @@
    "time": "07:30",
    "name": "וולפסון",
    "address": "הלוחמים 62",
-   "notes": "הודו, בית החולים"
+   "notes": "הודו, בית החולים",
+   "freshness": "current"
   },
   {
    "id": 103,
@@ -3284,7 +3503,8 @@
    "time": "07:45",
    "name": "מטה משה",
    "address": "החרצית 5",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 104,
@@ -3292,7 +3512,8 @@
    "time": "07:50",
    "name": "ר' חיים אברהם",
    "address": "אלופי צה\"ל 10",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 105,
@@ -3300,7 +3521,8 @@
    "time": "08:00",
    "name": "אור ציון",
    "address": "התחייה 14",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 106,
@@ -3308,7 +3530,8 @@
    "time": "08:00",
    "name": "מאיר עיניים",
    "address": "משעול הפז 17",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 107,
@@ -3316,7 +3539,8 @@
    "time": "08:00",
    "name": "עטרת חכמים",
    "address": "החיים 4",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 108,
@@ -3324,7 +3548,8 @@
    "time": "08:00",
    "name": "באר האמונה",
    "address": "יוטבתה 24",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 109,
@@ -3332,7 +3557,8 @@
    "time": "08:00",
    "name": "אור דניאל",
    "address": "עוזי נרקיס 4",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 110,
@@ -3340,7 +3566,8 @@
    "time": "08:00",
    "name": "בית מדרש נפתלי",
    "address": "אילת 36",
-   "notes": "קומה ב'"
+   "notes": "קומה ב'",
+   "freshness": "current"
   },
   {
    "id": 111,
@@ -3348,7 +3575,8 @@
    "time": "08:00",
    "name": "בית יצחק",
    "address": "ניסנבואים 8",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 112,
@@ -3356,7 +3584,8 @@
    "time": "08:00",
    "name": "באר האמונה",
    "address": "יוטבתה 24",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 113,
@@ -3364,7 +3593,8 @@
    "time": "08:00",
    "name": "מאיר עיניים",
    "address": "משעול הפז 15",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 114,
@@ -3372,7 +3602,8 @@
    "time": "08:10",
    "name": "אורות הצחצחות",
    "address": "המצודה 26",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 115,
@@ -3380,7 +3611,8 @@
    "time": "08:15",
    "name": "הרמב\"ם",
    "address": "הצרעה 3",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 116,
@@ -3388,7 +3620,8 @@
    "time": "08:00",
    "name": "אור התורה",
    "address": "יפה ירקוני 11",
-   "notes": "קומה -1"
+   "notes": "קומה -1, בימים שלא קוראים בתורה",
+   "freshness": "current"
   },
   {
    "id": 117,
@@ -3396,7 +3629,8 @@
    "time": "08:15",
    "name": "עץ חיים",
    "address": "הרב קוק 7",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 118,
@@ -3404,7 +3638,8 @@
    "time": "08:15",
    "name": "עץ חיים",
    "address": "אברבנאל 3",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 119,
@@ -3412,7 +3647,8 @@
    "time": "08:25",
    "name": "אהרונביץ",
    "address": "אהרונביץ 93",
-   "notes": "הודו, במקלט"
+   "notes": "הודו, במקלט",
+   "freshness": "current"
   },
   {
    "id": 120,
@@ -3420,7 +3656,8 @@
    "time": "08:30",
    "name": "מגן דוד",
    "address": "הופיין 17",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 121,
@@ -3428,7 +3665,8 @@
    "time": "08:30",
    "name": "חב\"ד",
    "address": "פנחס אילון 13",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 122,
@@ -3436,7 +3674,8 @@
    "time": "08:30",
    "name": "אור יוסף",
    "address": "צהלים 26",
-   "notes": "הודו"
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 123,
@@ -3444,7 +3683,8 @@
    "time": "08:30",
    "name": "בית רבינו",
    "address": "אהרונוביץ 91",
-   "notes": "ברוך שאמר"
+   "notes": "ברוך שאמר",
+   "freshness": "current"
   },
   {
    "id": 124,
@@ -3452,7 +3692,8 @@
    "time": "08:30",
    "name": "בני מנחם",
    "address": "צבי שץ 50",
-   "notes": "בית ספר, במקלט"
+   "notes": "בית ספר, במקלט",
+   "freshness": "current"
   },
   {
    "id": 125,
@@ -3460,7 +3701,8 @@
    "time": "08:45",
    "name": "אפיקי מים",
    "address": "חזית חמש 3",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 126,
@@ -3468,15 +3710,17 @@
    "time": "09:00",
    "name": "מאור ישראל",
    "address": "מבצע סיני 9",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 127,
    "category": "shacharit",
    "time": "09:00",
    "name": "בית חב\"ד",
-   "address": "סוקולוב 130",
-   "notes": "הודו"
+   "address": "סוקולוב 113",
+   "notes": "הודו",
+   "freshness": "current"
   },
   {
    "id": 128,
@@ -3484,7 +3728,8 @@
    "time": "09:30",
    "name": "ביהכ\"נ הגדול",
    "address": "הרב קוק 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
   },
   {
    "id": 129,
@@ -3492,7 +3737,293 @@
    "time": "10:00",
    "name": "ביהכ\"נ הגדול",
    "address": "הרב קוק 5",
-   "notes": ""
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 130,
+   "category": "shacharit",
+   "time": "נץ החמה",
+   "zmanReference": "sunrise",
+   "offset": 0,
+   "name": "אור הרשב\"י",
+   "address": "בית לחם 7",
+   "notes": "קורבנות 45 דקות לפני זמן הנץ",
+   "freshness": "current"
+  },
+  {
+   "id": 131,
+   "category": "shacharit",
+   "time": "05:45",
+   "name": "אילת 36",
+   "address": "אילת 36",
+   "notes": "ימים שקוראים בתורה",
+   "freshness": "current"
+  },
+  {
+   "id": 132,
+   "category": "shacharit",
+   "time": "06:00",
+   "name": "אילת 36",
+   "address": "אילת 36",
+   "notes": "ימים שלא קוראים בתורה",
+   "freshness": "current"
+  },
+  {
+   "id": 133,
+   "category": "shacharit",
+   "time": "06:00",
+   "name": "מש' אליהו",
+   "address": "מפרץ שלמה 53",
+   "notes": "קורבנות, קומה 1",
+   "freshness": "current"
+  },
+  {
+   "id": 134,
+   "category": "shacharit",
+   "time": "06:30",
+   "name": "חב\"ד",
+   "address": "מבצע סיני 9",
+   "notes": "הודו",
+   "freshness": "current"
+  },
+  {
+   "id": 135,
+   "category": "shacharit",
+   "time": "06:35",
+   "name": "שערי שמים",
+   "address": "עין גדי 18",
+   "notes": "קורבנות",
+   "freshness": "current"
+  },
+  {
+   "id": 136,
+   "category": "shacharit",
+   "time": "06:40",
+   "name": "שחל",
+   "address": "חומה ומגדל 18",
+   "notes": "הודו",
+   "freshness": "current"
+  },
+  {
+   "id": 137,
+   "category": "shacharit",
+   "time": "07:10",
+   "name": "סודאי",
+   "address": "רוטשילד 12",
+   "notes": "הודו",
+   "freshness": "current"
+  },
+  {
+   "id": 138,
+   "category": "shacharit",
+   "time": "07:30",
+   "name": "תורת משה",
+   "address": "אבן עזרא 3",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 139,
+   "category": "shacharit",
+   "time": "07:30",
+   "name": "סולם יעקב",
+   "address": "מקלף 16",
+   "notes": "הודו",
+   "freshness": "current"
+  },
+  {
+   "id": 140,
+   "category": "shacharit",
+   "time": "07:45",
+   "name": "אור התורה",
+   "address": "יפה ירקוני 11",
+   "notes": "קומה -1, בימים שקוראים בתורה",
+   "freshness": "current"
+  },
+  {
+   "id": 141,
+   "category": "shacharit",
+   "time": "08:00",
+   "name": "בית יוסף",
+   "address": "חזית חמש 10",
+   "notes": "הודו, קומה -1",
+   "freshness": "current"
+  },
+  {
+   "id": 142,
+   "category": "shacharit",
+   "time": "08:15",
+   "name": "בית רבנו",
+   "address": "מפרץ שלמה 100",
+   "notes": "הודו",
+   "freshness": "current"
+  },
+  {
+   "id": 252,
+   "category": "mincha",
+   "time": "13:15",
+   "name": "דגניה 21",
+   "address": "דגניה 21",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 253,
+   "category": "mincha",
+   "time": "13:30",
+   "name": "סוקולוב 47",
+   "address": "סוקולוב 47",
+   "notes": "ליד האיטליז",
+   "freshness": "current"
+  },
+  {
+   "id": 254,
+   "category": "mincha",
+   "time": "14:00",
+   "name": "דפוס פרש",
+   "address": "המעיין 1",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 255,
+   "category": "mincha",
+   "time": "14:30",
+   "name": "דרגת סנטר",
+   "address": "דרגת סנטר",
+   "notes": "בחנות המתנות למטה",
+   "freshness": "current"
+  },
+  {
+   "id": 256,
+   "category": "mincha",
+   "time": "16:30",
+   "name": "מטה משה",
+   "address": "החרצית 5",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 257,
+   "category": "mincha",
+   "time": "17:15",
+   "name": "חיים ביד",
+   "address": "מבצע סיני 9",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 270,
+   "category": "mincha",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
+   "name": "אור התורה",
+   "address": "יפה ירקוני 11",
+   "notes": "25 דקות לפני פלג המנחה, קומה -1",
+   "freshness": "current"
+  },
+  {
+   "id": 271,
+   "category": "mincha",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
+   "name": "ביה\"ס אריאל שרון",
+   "address": "פנחס אילון 22",
+   "notes": "25 דקות לפני פלג המנחה, בתוך בית הספר",
+   "freshness": "current"
+  },
+  {
+   "id": 272,
+   "category": "mincha",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
+   "name": "אור הרשב\"י",
+   "address": "בית לחם 9",
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
+  },
+  {
+   "id": 273,
+   "category": "mincha",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
+   "name": "אריק אינשטיין 11",
+   "address": "אריק אינשטיין 11",
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
+  },
+  {
+   "id": 286,
+   "category": "mincha",
+   "time": "17:30",
+   "name": "מעוז יעקב",
+   "address": "הגר\"א 35",
+   "notes": "",
+   "freshness": "current",
+   "pairing": "consecutive"
+  },
+  {
+   "id": 287,
+   "category": "mincha",
+   "time": "18:15",
+   "name": "שער השמיים",
+   "address": "עין גדי 18",
+   "notes": "",
+   "freshness": "current",
+   "pairing": "consecutive"
+  },
+  {
+   "id": 288,
+   "category": "mincha",
+   "time": "18:15",
+   "name": "הליכות עולם",
+   "address": "דבורה הנביאה 5",
+   "notes": "",
+   "freshness": "current",
+   "pairing": "consecutive"
+  },
+  {
+   "id": 448,
+   "category": "arvit",
+   "time": "21:15",
+   "name": "אור הרשב\"י",
+   "address": "בית לחם 9",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 449,
+   "category": "arvit",
+   "time": "21:45",
+   "name": "עין גדי 15",
+   "address": "עין גדי 15",
+   "notes": "ימי א' בלבד",
+   "freshness": "current"
+  },
+  {
+   "id": 450,
+   "category": "arvit",
+   "time": "23:00",
+   "name": "רבנות חולון",
+   "address": "הרב קוק 7",
+   "notes": "",
+   "freshness": "current"
+  },
+  {
+   "id": 274,
+   "category": "mincha",
+   "time": "לפני פלג המנחה",
+   "zmanReference": "plagHaMincha",
+   "offset": -25,
+   "name": "שאול",
+   "address": "בית לחם 9",
+   "notes": "25 דקות לפני פלג המנחה",
+   "freshness": "current"
   }
  ]
 }

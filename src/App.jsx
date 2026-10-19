@@ -8,6 +8,7 @@ import { fetchZmanim, FALLBACK_ZMANIM } from './lib/zmanim';
 import { isSelichotSeason } from './lib/season';
 import {
   buildUpcoming,
+  cityOf,
   matchesCity,
   matchesSearch,
   normalizeSelichot,
@@ -272,17 +273,33 @@ function EmptyState({ query, onClear }) {
   );
 }
 
-/** מחליף את באנר האזהרה הגורף — סופר בפועל כמה מניינים לא נכללו בעדכון האחרון */
+/** מחליף את באנר האזהרה הגורף — סופר בפועל כמה מניינים לא נכללו בעדכון
+ *  האחרון, ומייחס את החוסר לעיר שממנה הוא בא. העיר נגזרת מהנתונים ולא קבועה
+ *  בקוד, אחרת באנר אחד מספר על עיר אחת גם כששתיהן חסרות. */
 function FreshnessNote({ prayers, sources }) {
-  const stale = prayers.filter((p) => p.freshness === 'stale' || p.freshness === 'previous').length;
-  if (!stale) return null;
+  const byCity = new Map();
+  for (const p of prayers) {
+    if (p.freshness !== 'stale' && p.freshness !== 'previous') continue;
+    const city = cityOf(p);
+    byCity.set(city, (byCity.get(city) || 0) + 1);
+  }
+  if (!byCity.size) return null;
+
+  const stale = [...byCity.values()].reduce((sum, n) => sum + n, 0);
+  const breakdown = [...byCity.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([city, n]) => {
+      const label = sources?.[city]?.label;
+      return `${n} ב${city}${label ? ` (${label})` : ''}`;
+    })
+    .join(', ');
 
   return (
     <p className="m-0 flex items-start gap-[11px] rounded-[8px] border border-line bg-surface px-[15px] py-[13px] text-[13px] leading-relaxed text-muted">
       <Info className="mt-[3px] size-4 shrink-0 text-faint" />
       <span>
         <b className="font-semibold text-ink-2">{stale} מניינים ברשימה לא נכללו בעדכון האחרון</b>{' '}
-        של בת ים ({sources?.['בת ים']?.label}). הם מסומנים בתגית, והזמנים שלהם עשויים להיות לא מדויקים.
+        של העיר שלהם — {breakdown}. הם מסומנים בתגית, והזמנים שלהם עשויים להיות לא מדויקים.
       </span>
     </p>
   );
